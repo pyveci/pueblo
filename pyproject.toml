@@ -75,7 +75,7 @@ env = [
 ]
 develop = [
   "black<24",
-  "mypy==1.5.1",
+  "mypy==1.6.1",
   "poethepoet<1",
   "pyproject-fmt<1.2",
   "ruff==0.0.291",
