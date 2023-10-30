@@ -62,12 +62,13 @@ dynamic = [
 ]
 
 dependencies = [
+  'importlib-metadata; python_version <= "3.7"',
   "platformdirs<4",
 ]
 
 [project.optional-dependencies]
 all = [
-  "pueblo[cli,env,nlp,web]",
+  "pueblo[cli,env,ngr,nlp,web]",
 ]
 cli = [
   "click<9",
@@ -84,6 +85,8 @@ develop = [
 ]
 env = [
   "python-dotenv<2",
+]
+ngr = [
 ]
 nlp = [
   "langchain==0.0.325",
@@ -103,6 +106,7 @@ web = [
   "requests-cache<2",
 ]
 [project.scripts]
+ngr = "pueblo.ngr.cli:main"
 pueblo = "pueblo.cli:cli"
 [tool.setuptools]
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html

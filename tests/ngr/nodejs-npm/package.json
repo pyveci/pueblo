@@ -1,0 +1,14 @@
+{
+  "name": "pyveci-ngr-testdrive",
+  "version": "0.0.1",
+  "description": "Test project for pueblo.ngr",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'Hallo, Räuber Hotzenplotz.'"
+  },
+  "keywords": [
+    "testing"
+  ],
+  "author": "",
+  "license": "MIT"
+}

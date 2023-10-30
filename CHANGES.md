@@ -6,3 +6,4 @@
 ## 2023-10-30 0.0.1
 - Initial thing
 - Add `CachedWebResource`, a wrapper around `requests-cache` and `langchain`
+- Add test suite runner `pueblo.ngr`
