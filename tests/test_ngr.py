@@ -44,7 +44,7 @@ def test_ngr_sample(sample: Path):
 
     result = runner.invoke(
         pueblo.ngr.cli,
-        args=f"test tests/{sample}",
+        args=f"test --accept-no-venv tests/{sample}",
         catch_exceptions=False,
         prog_name=PROGRAM_NAME,
     )

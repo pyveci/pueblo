@@ -43,6 +43,20 @@ jobs:
         cache: 'pip'
         cache-dependency-path: 'pyproject.toml'
 
+    # Needed for `pueblo.ngr`.
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: "temurin"
+        java-version: "17"
+
+    # Needed for `pueblo.ngr`.
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "3.2"
+        bundler-cache: true
+
     - name: Set up project
       run: |
 
