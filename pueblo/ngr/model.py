@@ -2,7 +2,6 @@ from enum import Enum
 
 
 class ItemType(Enum):
-    RUST = "rust"
     DOTNET = "dotnet"
     JAVA = "java"
     JAVASCRIPT = "javascript"
@@ -10,3 +9,4 @@ class ItemType(Enum):
     PHP = "php"
     PYTHON = "python"
     RUBY = "ruby"
+    RUST = "rust"
