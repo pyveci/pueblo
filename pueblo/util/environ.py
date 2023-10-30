@@ -1,11 +1,10 @@
 import getpass
 import os
-import typing as t
 
 from dotenv import find_dotenv, load_dotenv
 
 
-def getenvpass(env_var: str, prompt: str, skip_pytest_notebook: bool = True) -> t.Optional[str]:
+def getenvpass(env_var: str, prompt: str, skip_pytest_notebook: bool = True) -> None:
     """
     Read variable from environment or `.env` file.
     If it is not defined, prompt interactively.
@@ -21,4 +20,3 @@ def getenvpass(env_var: str, prompt: str, skip_pytest_notebook: bool = True) -> 
             pytest.exit(f"{env_var} not given [skip-notebook]")
         else:
             os.environ[env_var] = getpass.getpass(prompt)
-    return os.environ.get(env_var)
