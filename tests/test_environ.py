@@ -17,14 +17,14 @@ def init_testcase():
 
 def test_getenvpass_prompt(mocker):
     mocker.patch("getpass.getpass", return_value="foobar")
-    retval = getenvpass("ACME_API_KEY", "really?", skip_pytest_notebook=False)
-    assert retval == "foobar"
+    getenvpass("ACME_API_KEY", "really?", skip_pytest_notebook=False)
+    assert os.environ.get("ACME_API_KEY") == "foobar"
 
 
 def test_getenvpass_environ():
     with mock.patch("getpass.getpass"), mock.patch("pytest.exit") as exit_mock:
-        retval = getenvpass("ACME_API_KEY", "really?")
-        assert retval is None
+        getenvpass("ACME_API_KEY", "really?")
+        assert os.environ.get("ACME_API_KEY") is None
         exit_mock.assert_called_once_with(
             "ACME_API_KEY not given [skip-notebook]",
         )
