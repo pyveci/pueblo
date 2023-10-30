@@ -142,6 +142,7 @@ class JavaRunner(RunnerBase):
         if self.has_pom_xml:
             run_command("mvn install")
         elif self.has_gradle_files:
+            run_command("gradle wrapper")
             run_command("./gradlew install")
         else:
             raise NotImplementedError("Unable to invoke target: install")
