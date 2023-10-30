@@ -62,9 +62,13 @@ dynamic = [
 ]
 
 dependencies = [
+  "platformdirs<4",
 ]
 
 [project.optional-dependencies]
+all = [
+  "pueblo[cli,env,nlp,web]",
+]
 cli = [
   "click<9",
   "click-aliases<2",
@@ -81,6 +85,10 @@ develop = [
 env = [
   "python-dotenv<2",
 ]
+nlp = [
+  "langchain==0.0.325",
+  "unstructured<0.11",
+]
 release = [
   "build<2",
   "twine<5",
@@ -90,6 +98,9 @@ test = [
   "pytest<8",
   "pytest-cov<5",
   "pytest-mock<4",
+]
+web = [
+  "requests-cache<2",
 ]
 [project.scripts]
 pueblo = "pueblo.cli:cli"
