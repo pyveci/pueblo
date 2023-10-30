@@ -22,9 +22,9 @@ def test_getenvpass_prompt(mocker):
 
 
 def test_getenvpass_environ():
-    with \
-            mock.patch("getpass.getpass"), \
-            mock.patch("pytest.exit") as exit_mock:
+    with mock.patch("getpass.getpass"), mock.patch("pytest.exit") as exit_mock:
         retval = getenvpass("ACME_API_KEY", "really?")
         assert retval is None
-        exit_mock.assert_called_once_with("ACME_API_KEY not given [skip-notebook]",)
+        exit_mock.assert_called_once_with(
+            "ACME_API_KEY not given [skip-notebook]",
+        )

@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def help_pueblo():
     """
     Pueblo - a Python toolbox library.
-    
+
     pueblo --version
     """  # noqa: E501
 

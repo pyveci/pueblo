@@ -187,6 +187,7 @@ extend-exclude = [
 ]
 
 [tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]  # `xxx` imported but unused
 "tests/*" = ["S101"]  # Use of `assert` detected
 
 

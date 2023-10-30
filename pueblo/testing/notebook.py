@@ -26,11 +26,11 @@ def monkeypatch_pytest_notebook_treat_cell_exit_as_notebook_skip():
     async_execute_cell_dist = NotebookClient.async_execute_cell
 
     async def async_execute_cell(
-            self,
-            cell: NotebookNode,
-            cell_index: int,
-            execution_count: t.Optional[int] = None,
-            store_history: bool = True,
+        self,
+        cell: NotebookNode,
+        cell_index: int,
+        execution_count: t.Optional[int] = None,
+        store_history: bool = True,
     ) -> NotebookNode:
         try:
             return await async_execute_cell_dist(
@@ -42,8 +42,8 @@ def monkeypatch_pytest_notebook_treat_cell_exit_as_notebook_skip():
             )
         except CellExecutionError as ex:
             if ex.ename == "Exit" and ex.evalue.endswith("[skip-notebook]"):
-                raise pytest.skip(ex.evalue)
-            else:
+                raise pytest.skip(ex.evalue) from ex
+            else:  # noqa: RET506
                 raise
 
-    NotebookClient.async_execute_cell = async_execute_cell
+    NotebookClient.async_execute_cell = async_execute_cell  # type: ignore[method-assign]

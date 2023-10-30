@@ -7,7 +7,9 @@ from pueblo.util.logging import setup_logging
 logger = logging.getLogger(__name__)
 
 
-def boot_click(ctx: "click.Context", verbose: bool = False, debug: bool = False):
+def boot_click(
+    ctx: "click.Context", verbose: bool = False, debug: bool = False  # type: ignore[name-defined]  # noqa: F821
+):
     """
     Bootstrap the CLI application.
     """
