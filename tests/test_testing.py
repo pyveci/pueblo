@@ -1,0 +1,5 @@
+from pueblo.testing.notebook import monkeypatch_pytest_notebook_treat_cell_exit_as_notebook_skip
+
+
+def test_monkeypatch_pytest_notebook_treat_cell_exit_as_notebook_skip():
+    monkeypatch_pytest_notebook_treat_cell_exit_as_notebook_skip()
