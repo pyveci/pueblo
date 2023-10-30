@@ -12,7 +12,7 @@ def setup_logging(level=logging.INFO, verbose: bool = False):
 
 
 def setup_logging_standard(level=logging.INFO, verbose: bool = False):
-    log_format = "%(asctime)-15s [%(name)-35s] %(levelname)-8s: %(message)s"
+    log_format = "%(asctime)-15s [%(name)-26s] %(levelname)-8s: %(message)s"
     logging.basicConfig(format=log_format, stream=sys.stderr, level=level)
 
 
@@ -21,7 +21,7 @@ def setup_logging_colorlog(level=logging.INFO, verbose: bool = False):
     from colorlog.escape_codes import escape_codes
 
     reset = escape_codes["reset"]
-    log_format = f"%(asctime)-15s [%(name)-36s] %(log_color)s%(levelname)-8s:{reset} %(message)s"
+    log_format = f"%(asctime)-15s [%(name)-26s] %(log_color)s%(levelname)-8s:{reset} %(message)s"
 
     handler = colorlog.StreamHandler()
     handler.setFormatter(colorlog.ColoredFormatter(log_format))
