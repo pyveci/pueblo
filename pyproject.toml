@@ -78,7 +78,7 @@ develop = [
   "mypy==1.5.1",
   "poethepoet<1",
   "pyproject-fmt<1.2",
-  "ruff==0.0.291",
+  "ruff==0.1.3",
   "validate-pyproject<0.15",
 ]
 release = [
