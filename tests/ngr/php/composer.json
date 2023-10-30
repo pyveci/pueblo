@@ -1,0 +1,10 @@
+{
+    "name": "pyveci/ngr-testdrive",
+    "description": "Test project for pueblo.ngr",
+    "type": "library",
+    "license": "MIT",
+    "require": {},
+    "scripts": {
+        "test": "php -r 'print(\"Hallo, Räuber Hotzenplotz.\\n\");'"
+    }
+}
