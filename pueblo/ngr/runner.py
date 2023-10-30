@@ -352,12 +352,12 @@ class RustRunner(RunnerBase):
 
     def install(self) -> None:
         """
-        Install dependencies of PHP Composer package.
+        Invoke `cargo build`.
         """
         run_command("cargo build")
 
     def test(self) -> None:
         """
-        Invoke a script called `test`, defined in `composer.json`.
+        Invoke `cargo test`.
         """
-        run_command("cargo run")
+        run_command("cargo test")
