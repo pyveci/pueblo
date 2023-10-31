@@ -191,6 +191,35 @@ class JavaScriptRunner(RunnerBase):
         run_command("npm test")
 
 
+class JuliaRunner(RunnerBase):
+    """
+    Basic runner for Julia projects.
+
+    Currently, just knows to invoke `Pkg.{build,test}` within a directory.
+    """
+
+    def __post_init__(self) -> None:
+        self.has_project_toml: t.Optional[bool] = None
+
+    def peek(self) -> None:
+        self.has_project_toml = mp(self.path, "Project.toml")
+
+        if self.has_project_toml:
+            self.type = ItemType.JULIA
+
+    def install(self) -> None:
+        """
+        Invoke `Pkg.build()`.
+        """
+        run_command("julia --project=. --depwarn=error --eval='using Pkg; Pkg.build()'")
+
+    def test(self) -> None:
+        """
+        Invoke `Pkg.test()`.
+        """
+        run_command("julia --project=. --depwarn=error --eval='using Pkg; Pkg.test()'")
+
+
 class MakeRunner(RunnerBase):
     """
     Basic Make runner.

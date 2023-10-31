@@ -1,0 +1,11 @@
+name = "NgrTestProject"
+uuid = "f40132f4-a6b5-5a47-8639-614ab4cd2de4"
+version = "0.0.1"
+
+[deps]
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
