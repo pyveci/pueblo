@@ -44,14 +44,16 @@ class NextGenerationRunner:
         self.runner: t.Optional[RunnerBase] = None
         self.type: t.Optional[ItemType] = None
         self.runners = {
+            # Language runners, listed alphabetically.
             ItemType.DOTNET: DotNetRunner,
             ItemType.JAVA: JavaRunner,
             ItemType.JAVASCRIPT: JavaScriptRunner,
-            ItemType.MAKE: MakeRunner,
             ItemType.PHP: PhpRunner,
             ItemType.PYTHON: PythonRunner,
             ItemType.RUBY: RubyRunner,
             ItemType.RUST: RustRunner,
+            # Makefile runner, as fallback.
+            ItemType.MAKE: MakeRunner,
         }
         self.identify()
 
