@@ -1,0 +1,3 @@
+import NgrTestProject
+
+NgrTestProject.greet()
