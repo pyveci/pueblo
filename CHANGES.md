@@ -1,6 +1,7 @@
 # Changes for pueblo
 
 ## Unreleased
+- ngr: Use Makefile runner as fallback
 
 ## 2023-10-30 v0.0.1
 - Add `pueblo.util.logging.setup_logging`, nomen est omen
