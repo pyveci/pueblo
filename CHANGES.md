@@ -8,6 +8,8 @@
 - ngr: Add runner for Golang projects
 - ngr: Add runner for Elixir projects
 - ngr: Add runner for Haskell projects
+- ngr: Fix Python runner about `error: Multiple top-level modules discovered in
+  a flat-layout`
 
 ## 2023-10-30 v0.0.1
 - Add `pueblo.util.logging.setup_logging`, nomen est omen
