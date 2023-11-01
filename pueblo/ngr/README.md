@@ -10,6 +10,7 @@ A universal (test) runner program.
 
 ```shell
 # Invoke test suite in given directory.
+ngr test tests/ngr/elixir
 ngr test tests/ngr/julia
 ngr test tests/ngr/make
 ngr test tests/ngr/php

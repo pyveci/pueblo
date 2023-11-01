@@ -19,6 +19,7 @@ from pathlib import Path
 from pueblo.ngr.model import ItemType
 from pueblo.ngr.runner import (
     DotNetRunner,
+    ElixirRunner,
     GolangRunner,
     JavaRunner,
     JavaScriptRunner,
@@ -48,6 +49,7 @@ class NextGenerationRunner:
         self.runners = {
             # Language runners, listed alphabetically.
             ItemType.DOTNET: DotNetRunner,
+            ItemType.ELIXIR: ElixirRunner,
             ItemType.GOLANG: GolangRunner,
             ItemType.JAVA: JavaRunner,
             ItemType.JAVASCRIPT: JavaScriptRunner,
