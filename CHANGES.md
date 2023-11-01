@@ -1,6 +1,8 @@
 # Changes for pueblo
 
 ## Unreleased
+
+## 2023-11-01 v0.0.2
 - ngr: Use Makefile runner as fallback
 - ngr: Add runner for Julia projects
 - ngr: Improve runner for Python projects
