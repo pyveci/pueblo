@@ -140,6 +140,7 @@ log_cli_level = "DEBUG"
 testpaths = ["tests"]
 xfail_strict = true
 markers = [
+  "ngr",
 ]
 
 [tool.coverage.run]
@@ -230,11 +231,11 @@ lint = [
   { cmd = "validate-pyproject pyproject.toml" },
   { cmd = "mypy" },
 ]
-test = [
-  { cmd = "pytest" },
-]
+test = "pytest -m 'not ngr'"
+test-full = "pytest"
 build = { cmd = "python -m build" }
 check = ["lint", "test"]
+check-full = ["lint", "test-full"]
 
 release = [
   { cmd = "python -m build" },

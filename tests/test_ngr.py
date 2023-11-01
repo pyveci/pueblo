@@ -12,6 +12,7 @@ PROGRAM_NAME = "ngr"
 HERE = Path(__file__).parent
 
 
+@pytest.mark.ngr
 def test_ngr_version():
     """
     Invoke `ngr --version`.
@@ -36,6 +37,7 @@ def list_target_samples(path: Path):
     return [sample for sample in samples if ".pytest_cache" not in str(sample)]
 
 
+@pytest.mark.ngr
 @pytest.mark.parametrize("sample", list_target_samples(HERE), ids=map(str, list_target_samples(HERE)))
 def test_ngr_sample(sample: Path):
     """
