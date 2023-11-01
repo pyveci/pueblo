@@ -46,7 +46,7 @@ ngr test tests/ngr/rust
 
 ## Backlog
 
-- Add Golang, Julia, Elixir, Haskell
+- Add Golang, Julia, Elixir, Haskell, Zig
 
 - Directly run on repository URL
 
