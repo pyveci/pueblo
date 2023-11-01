@@ -1,0 +1,11 @@
+[project]
+name = "ngr-python-test-pyproject"
+version = "0.0.1"
+
+dependencies = [
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest<8",
+]

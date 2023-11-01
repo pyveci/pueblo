@@ -281,19 +281,28 @@ class PythonRunner(RunnerBase):
     Basic Python runner.
 
     Currently, just knows to invoke `pytest` within a directory.
+
+    # TODO: Need to run within a virtualenv to be isolated from the parent environment.
     """
 
     def __post_init__(self) -> None:
         self.has_python_files: t.Optional[bool] = None
         self.has_setup_py: t.Optional[bool] = None
+        self.has_setup_cfg: t.Optional[bool] = None
         self.has_pyproject_toml: t.Optional[bool] = None
+        # TODO: Rename to `is_poetry`, by introspecting `pyproject.toml` for `[tool.poetry]`.
+        self.has_poetry_lock: t.Optional[bool] = None
         self.has_requirements_txt: t.Optional[bool] = None
 
     def peek(self) -> None:
         self.has_python_files = mp(self.path, "*.py")
-        self.has_setup_py = mp(self.path, "*.setup.py")
-        self.has_pyproject_toml = mp(self.path, "*.pyproject.toml")
+        self.has_setup_py = mp(self.path, "setup.py")
+        self.has_setup_cfg = mp(self.path, "setup.cfg")
+        self.has_pyproject_toml = mp(self.path, "pyproject.toml")
+        self.has_poetry_lock = mp(self.path, "poetry.lock")
         self.has_requirements_txt = mp(self.path, "requirements*.txt")
+        self.is_pipx_installed = shutil.which("pipx")
+        self.is_poetry_installed = shutil.which("poetry")
 
         if self.has_python_files or self.has_setup_py or self.has_pyproject_toml or self.has_requirements_txt:
             self.type = ItemType.PYTHON
@@ -311,23 +320,48 @@ class PythonRunner(RunnerBase):
     def install(self) -> None:
         """
         Install dependencies of Python thing, based on its shape.
+
+        TODO: Heuristically figure out which "extra" packages to install from the outside.
+              Exampl names for minimal test/development dependencies: dev,devel,tests,testing.
         """
         requirements_txt = list(self.path.glob("requirements*.txt"))
         if requirements_txt:
             pip_requirements_args = [f"-r {item}" for item in requirements_txt]
             pip_cmd = f"pip install {' '.join(pip_requirements_args)}"
-            logger.info(f"Running pip: {pip_cmd}")
             run_command(pip_cmd)
+        if self.has_poetry_lock:
+            # TODO: Add list of extras.
+            # TODO: Poetry also knows dependency groups, e.g. `--with=test`.
+            if not self.is_poetry_installed:
+                if not self.is_pipx_installed:
+                    run_command("pip install pipx")
+                run_command("pipx install poetry")
+            try:
+                run_command("poetry install --with=test")
+            except Exception:
+                run_command("poetry install")
+        elif self.has_pyproject_toml or self.has_setup_cfg or self.has_setup_py:
+            run_command("pip install --editable='.[develop,test]'")
 
     def test(self) -> None:
         """
         Test a Python thing, based on which test runner is installed.
+
+        TODO: Figure out how to invoke target `poe check`, which is popular amongst
+              users of `pueblo`. It bundles linter/checkstyle and software test targets
+              into a single entrypoint, similar to what `gradle check` is doing.
         """
-        has_pytest = shutil.which("pytest") is not None
-        if has_pytest:
-            run_command("pytest")
+
+        if self.has_poetry_lock:
+            # TODO: poetry run which pytest
+            run_command("poetry run pytest --config-file=.")
+
         else:
-            raise NotImplementedError("No handler to invoke Python item")
+            has_pytest = shutil.which("pytest") is not None
+            if has_pytest:
+                run_command("pytest --config-file=.")
+            else:
+                raise NotImplementedError("No handler to invoke Python item")
 
 
 class RubyRunner(RunnerBase):
