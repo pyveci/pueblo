@@ -129,7 +129,7 @@ class ElixirRunner(RunnerBase):
 
     def install(self) -> None:
         """
-        Install package manage, and project dependencies.
+        Install package manager, and project dependencies.
         """
         run_command("mix local.hex --force --if-missing")
         run_command("mix deps.get")
@@ -168,6 +168,35 @@ class GolangRunner(RunnerBase):
         Invoke `go test -v`.
         """
         run_command("go test -v")
+
+
+class HaskellRunner(RunnerBase):
+    """
+    Basic Haskell runner.
+
+    Currently, just knows to invoke `stack {build,test}` within a directory.
+    """
+
+    def __post_init__(self) -> None:
+        self.has_cabal_file: t.Optional[bool] = None
+
+    def peek(self) -> None:
+        self.has_cabal_file = mp(self.path, "*.cabal")
+
+        if self.has_cabal_file:
+            self.type = ItemType.HASKELL
+
+    def install(self) -> None:
+        """
+        Install project dependencies.
+        """
+        run_command("stack build")
+
+    def test(self) -> None:
+        """
+        Run test suite.
+        """
+        run_command("stack test")
 
 
 class JavaRunner(RunnerBase):

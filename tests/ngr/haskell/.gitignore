@@ -1,0 +1,5 @@
+.stack-work
+stack.yaml.lock
+/src/Main
+/src/*.hi
+/src/*.o

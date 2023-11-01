@@ -5,6 +5,7 @@ class ItemType(Enum):
     DOTNET = "dotnet"
     ELIXIR = "elixir"
     GOLANG = "golang"
+    HASKELL = "haskell"
     JAVA = "java"
     JAVASCRIPT = "javascript"
     JULIA = "julia"
