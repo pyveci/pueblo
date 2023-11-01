@@ -463,7 +463,7 @@ class PythonRunner(RunnerBase):
         else:
             has_pytest = shutil.which("pytest") is not None
             if has_pytest:
-                run_command("pytest --config-file=.")
+                run_command("pytest")
             else:
                 raise NotImplementedError("No handler to invoke Python item")
 
