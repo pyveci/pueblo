@@ -6,7 +6,7 @@
 > [Elixir] ships with a great set of tools to ease development. [Mix] is a
 > build tool that allows you to easily create projects, manage tasks,
 > run tests and more.
-> 
+>
 > [Mix] also integrates with the [Hex] package manager for dependency management
 > and hosting documentation for the whole ecosystem.
 >

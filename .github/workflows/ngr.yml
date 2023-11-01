@@ -1,10 +1,19 @@
 ---
-name: Tests for pueblo.*
+name: Tests for pueblo.ngr
 
 on:
-  pull_request: ~
+  pull_request:
+    branches: ~
+    paths:
+    - '.github/workflows/ngr.yml'
+    - 'pueblo/ngr/**'
+    - 'tests/ngr/**'
   push:
     branches: [ main ]
+    paths:
+    - '.github/workflows/ngr.yml'
+    - 'pueblo/ngr/**'
+    - 'tests/ngr/**'
 
   # Allow job to be triggered manually.
   workflow_dispatch:
@@ -43,6 +52,33 @@ jobs:
         cache: 'pip'
         cache-dependency-path: 'pyproject.toml'
 
+    # Needed for `pueblo.ngr`.
+    - name: Set up Elixir
+      uses: erlef/setup-beam@v1
+      with:
+        otp-version: '26.1'
+        elixir-version: '1.15'
+    - name: Set up Elixir/Mix dependency cache
+      uses: actions/cache@v3
+      id: elixir-mix-cache
+      with:
+        path: tests/ngr/elixir/deps
+        key: ${{ runner.os }}-${{ matrix.otp-version }}-${{ matrix.elixir-version }}-mix-${{ hashFiles('tests/ngr/elixir/mix.lock') }}
+
+    # Needed for `pueblo.ngr`.
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: "temurin"
+        java-version: "17"
+
+    # Needed for `pueblo.ngr`.
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "3.2"
+        bundler-cache: true
+
     - name: Set up project
       run: |
 
@@ -55,7 +91,7 @@ jobs:
 
     - name: Run linter and software tests
       run: |
-        poe check
+        pytest -m ngr
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
