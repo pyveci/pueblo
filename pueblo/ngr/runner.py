@@ -410,13 +410,14 @@ class PythonRunner(RunnerBase):
         Install dependencies of Python thing, based on its shape.
 
         TODO: Heuristically figure out which "extra" packages to install from the outside.
-              Exampl names for minimal test/development dependencies: dev,devel,tests,testing.
+              Example names for minimal test/development dependencies: dev,devel,tests,testing.
         """
         requirements_txt = list(self.path.glob("requirements*.txt"))
         if requirements_txt:
             pip_requirements_args = [f"-r {item}" for item in requirements_txt]
             pip_cmd = f"pip install {' '.join(pip_requirements_args)}"
             run_command(pip_cmd)
+
         if self.has_poetry_lock:
             # TODO: Add list of extras.
             # TODO: Poetry also knows dependency groups, e.g. `--with=test`.
@@ -428,8 +429,23 @@ class PythonRunner(RunnerBase):
                 run_command("poetry install --with=test")
             except Exception:
                 run_command("poetry install")
+
         elif self.has_pyproject_toml or self.has_setup_cfg or self.has_setup_py:
-            run_command("pip install --editable='.[develop,test]'")
+            # By default, assume to run `pip install`.
+            pip_install = True
+
+            # `pyproject.toml` files are sometimes only used for configuring tools,
+            # but not for defining project metadata. When still trying to install,
+            # they will error out like `error: Multiple top-level modules discovered
+            # in a flat-layout`.
+            if self.has_pyproject_toml:
+                pyproject_toml_file = self.path / "pyproject.toml"
+                pyproject_toml = pyproject_toml_file.read_text()
+                if "[project]" not in pyproject_toml:
+                    pip_install = False
+
+            if pip_install:
+                run_command("pip install --editable='.[develop,test]'")
 
     def test(self) -> None:
         """
