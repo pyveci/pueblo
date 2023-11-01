@@ -46,6 +46,13 @@ ngr test tests/ngr/rust
 
 ## Backlog
 
+- Add Golang, Julia, Elixir, Haskell
+
+- Directly run on repository URL
+
+  `ngr test https://github.com/crate/mongodb-cratedb-migration-tool@develop`
+  `ngr test https://github.com/crate/cratedb-prometheus-adapter`
+
 - Use PKGX
 
   Invoke any type of application using any kind of runtime.
