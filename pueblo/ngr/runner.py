@@ -111,6 +111,36 @@ class DotNetRunner(RunnerBase):
         run_command(f'dotnet test --framework={self.framework} --collect:"XPlat Code Coverage"')
 
 
+class ElixirRunner(RunnerBase):
+    """
+    Basic Elixir runner.
+
+    Currently, just knows to invoke `hex` and `mix` within a directory.
+    """
+
+    def __post_init__(self) -> None:
+        self.mix_project: t.Optional[bool] = None
+
+    def peek(self) -> None:
+        self.mix_project = mp(self.path, "mix.exs")
+
+        if self.mix_project:
+            self.type = ItemType.ELIXIR
+
+    def install(self) -> None:
+        """
+        Install package manage, and project dependencies.
+        """
+        run_command("mix local.hex --force --if-missing")
+        run_command("mix deps.get")
+
+    def test(self) -> None:
+        """
+        Run test suite.
+        """
+        run_command("mix test")
+
+
 class GolangRunner(RunnerBase):
     """
     Basic Golang runner.

@@ -44,6 +44,19 @@ jobs:
         cache-dependency-path: 'pyproject.toml'
 
     # Needed for `pueblo.ngr`.
+    - name: Set up Elixir
+      uses: erlef/setup-beam@v1
+      with:
+        otp-version: '22.2'
+        elixir-version: '1.9.4'
+    - name: Retrieve Mix Dependencies Cache
+      uses: actions/cache@v3
+      id: elixir-mix-cache
+      with:
+        path: tests/ngr/elixir/deps
+        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+    # Needed for `pueblo.ngr`.
     - name: Set up Java
       uses: actions/setup-java@v3
       with:
