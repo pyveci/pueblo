@@ -111,6 +111,35 @@ class DotNetRunner(RunnerBase):
         run_command(f'dotnet test --framework={self.framework} --collect:"XPlat Code Coverage"')
 
 
+class GolangRunner(RunnerBase):
+    """
+    Basic Golang runner.
+
+    Currently, just knows to invoke `go {build,test}` within a directory.
+    """
+
+    def __post_init__(self) -> None:
+        self.has_go_mod: t.Optional[bool] = None
+
+    def peek(self) -> None:
+        self.has_go_mod = mp(self.path, "go.mod")
+
+        if self.has_go_mod:
+            self.type = ItemType.GOLANG
+
+    def install(self) -> None:
+        """
+        Invoke `go build`.
+        """
+        run_command("go build")
+
+    def test(self) -> None:
+        """
+        Invoke `go test -v`.
+        """
+        run_command("go test -v")
+
+
 class JavaRunner(RunnerBase):
     """
     Java test suite runner.

@@ -3,6 +3,7 @@ from enum import Enum
 
 class ItemType(Enum):
     DOTNET = "dotnet"
+    GOLANG = "golang"
     JAVA = "java"
     JAVASCRIPT = "javascript"
     JULIA = "julia"

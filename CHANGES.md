@@ -5,6 +5,7 @@
 - ngr: Add runner for Julia projects
 - ngr: Improve runner for Python projects
   Also consider setup.py, setup.cfg, pyproject.toml, and poetry.lock.
+- ngr: Add runner for Golang projects
 
 ## 2023-10-30 v0.0.1
 - Add `pueblo.util.logging.setup_logging`, nomen est omen
