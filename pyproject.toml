@@ -133,6 +133,7 @@ addopts = """
   -rfEX -p pytester --strict-markers --verbosity=3
   --cov --cov-report=term-missing --cov-report=xml
   --capture=no
+  --ignore=tests/ngr
   """
 log_level = "DEBUG"
 log_cli_level = "DEBUG"
@@ -151,6 +152,9 @@ omit = [
 [tool.coverage.report]
 fail_under = 0
 show_missing = true
+omit = [
+    "tests/*",
+]
 
 [tool.mypy]
 packages = ["pueblo"]

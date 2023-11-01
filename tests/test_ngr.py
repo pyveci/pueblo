@@ -32,7 +32,8 @@ def list_target_samples(path: Path):
     """
     Enumerate all example test directories, each is a minimal `ngr test` target.
     """
-    return relative_to(list_directories(path, "ngr/*"), path)
+    samples = relative_to(list_directories(path, "ngr/*"), path)
+    return [sample for sample in samples if ".pytest_cache" not in str(sample)]
 
 
 @pytest.mark.parametrize("sample", list_target_samples(HERE), ids=map(str, list_target_samples(HERE)))

@@ -3,7 +3,7 @@ from pueblo.util.logging import setup_logging
 try:
     from importlib.metadata import PackageNotFoundError, version
 except (ImportError, ModuleNotFoundError):  # pragma:nocover
-    from importlib_metadata import PackageNotFoundError, version  # type: ignore[no-redef]
+    from importlib_metadata import PackageNotFoundError, version  # type: ignore[assignment]
 
 __appname__ = "pueblo"
 

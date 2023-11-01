@@ -1,0 +1,11 @@
+[tool.poetry]
+name = "ngr-python-test-poetry"
+version = "0.0.1"
+description = "Test project for pueblo.ngr"
+authors = []
+
+[tool.poetry.dependencies]
+python = "^3.9,!=3.9.7,<3.13"
+
+[tool.poetry.group.test.dependencies]
+pytest = ">=7.2,<8"
