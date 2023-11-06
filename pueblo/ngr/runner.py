@@ -1,4 +1,3 @@
-import contextlib
 import logging
 import shlex
 import shutil
@@ -10,6 +9,12 @@ from pathlib import Path
 
 from pueblo.ngr.model import ItemType
 from pueblo.ngr.util import is_venv, mp, run_command
+
+try:
+    from contextlib import chdir as chdir_ctx  # type: ignore[attr-defined,unused-ignore]
+except ImportError:
+    from contextlib_chdir import chdir as chdir_ctx  # type: ignore[no-redef,unused-ignore]
+
 
 logger = logging.getLogger()
 
@@ -28,7 +33,7 @@ class RunnerBase:
         # Change working directory to designated path.
         # From there, address paths relatively.
 
-        with contextlib.chdir(self.path):
+        with chdir_ctx(self.path):
             self.path = Path(".")
 
             logger.info("Environment Information")

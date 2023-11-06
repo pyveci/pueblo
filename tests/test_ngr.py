@@ -52,3 +52,18 @@ def test_ngr_sample(sample: Path):
         prog_name=PROGRAM_NAME,
     )
     assert result.exit_code == 0
+
+
+def test_ngr_make():
+    """
+    Invoke minimal `ngr test` target.
+    """
+    runner = CliRunner()
+
+    result = runner.invoke(
+        pueblo.ngr.cli,
+        args="test --accept-no-venv tests/ngr/make",
+        catch_exceptions=False,
+        prog_name=PROGRAM_NAME,
+    )
+    assert result.exit_code == 0
