@@ -3,7 +3,7 @@
 ## Unreleased
  
 ## 2023-11-06 v0.0.3
-ngr: Fix `contextlib.chdir` only available on Python 3.11 and newer
+- ngr: Fix `contextlib.chdir` only available on Python 3.11 and newer
 
 ## 2023-11-01 v0.0.2
 - ngr: Use Makefile runner as fallback
