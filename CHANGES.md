@@ -1,6 +1,7 @@
 # Changes for pueblo
 
 ## Unreleased
+- ngr: Fix `contextlib.chdir` only available on Python 3.11 and newer
 
 ## 2023-11-01 v0.0.2
 - ngr: Use Makefile runner as fallback
