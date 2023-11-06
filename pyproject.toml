@@ -89,7 +89,7 @@ env = [
 ngr = [
 ]
 nlp = [
-  "langchain==0.0.325",
+  "langchain==0.0.330",
   "unstructured<0.11",
 ]
 release = [
