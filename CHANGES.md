@@ -1,6 +1,7 @@
 # Changes for pueblo
 
 ## Unreleased
+- Add a few testing helper utilities to `pueblo.testing`
  
 ## 2023-11-06 v0.0.3
 - ngr: Fix `contextlib.chdir` only available on Python 3.11 and newer
