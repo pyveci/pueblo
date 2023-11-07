@@ -1,3 +1,7 @@
+# TODO: Publish as real package.
+from pueblo.testing.nlp import nltk_init  # noqa: F401
+
+
 def test_cached_web_resource():
     from pueblo.nlp.resource import CachedWebResource
 
@@ -8,3 +12,12 @@ def test_cached_web_resource():
     from langchain.schema import Document
 
     assert isinstance(docs[0], Document)
+
+
+def test_nltk_init(nltk_init):  # noqa: F811
+    """
+    Just _use_ the fixture to check if it works well.
+
+    TODO: Anything else that could be verified here?
+    """
+    pass
