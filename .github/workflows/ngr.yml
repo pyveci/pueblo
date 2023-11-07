@@ -97,7 +97,7 @@ jobs:
       uses: codecov/codecov-action@v3
       with:
         files: ./coverage.xml
-        flags: unittests
+        flags: ngr
         env_vars: OS,PYTHON
         name: codecov-umbrella
         fail_ci_if_error: false
