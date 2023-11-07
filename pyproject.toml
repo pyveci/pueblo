@@ -90,6 +90,7 @@ env = [
 ngr = [
 ]
 nlp = [
+  "aiohttp==3.9.0b1",
   "langchain==0.0.330",
   "unstructured<0.11",
 ]
