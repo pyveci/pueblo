@@ -70,13 +70,18 @@ dependencies = [
 
 [project.optional-dependencies]
 all = [
-  "pueblo[cli,fileio,nlp,notebook,testing,web]",
+  "pueblo[cli,dataframe,fileio,nlp,notebook,testing,web]",
 ]
 cli = [
   "click<9",
   "click-aliases<2,>=1.0.4",
   "colorlog<7",
   "python-dotenv<2",
+]
+dataframe = [
+  "dask",
+  "numpy",
+  "pandas",
 ]
 develop = [
   "black[jupyter]<24",
@@ -146,7 +151,6 @@ minversion = "2.0"
 addopts = """
   -rfEX -p pytester --strict-markers --verbosity=3
   --cov=pueblo --cov-report=term-missing --cov-report=xml
-  --capture=no
   --ignore=tests/ngr
   """
 log_level = "DEBUG"
