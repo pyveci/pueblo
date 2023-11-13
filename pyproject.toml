@@ -64,7 +64,7 @@ dynamic = [
 dependencies = [
   'contextlib-chdir; python_version < "3.11"',
   'importlib-metadata; python_version <= "3.7"',
-  "platformdirs<4",
+  "platformdirs<5",
 ]
 
 [project.optional-dependencies]
