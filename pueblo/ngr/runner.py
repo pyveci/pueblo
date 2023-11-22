@@ -237,7 +237,6 @@ class JavaRunner(RunnerBase):
         elif self.has_gradle_files:
             if shutil.which("gradle"):
                 run_command("gradle wrapper")
-            run_command("./gradlew install")
         else:
             raise NotImplementedError("Unable to invoke target: install")
 
