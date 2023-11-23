@@ -443,9 +443,7 @@ class PythonRunner(RunnerBase):
             # they will error out like `error: Multiple top-level modules discovered
             # in a flat-layout`.
             if self.has_pyproject_toml:
-                pyproject_toml_file = self.path / "pyproject.toml"
-                pyproject_toml = pyproject_toml_file.read_text()
-                if "[project]" not in pyproject_toml:
+                if not self.pyproject_has_string("[project]"):
                     pip_install = False
 
             if pip_install:
@@ -455,21 +453,65 @@ class PythonRunner(RunnerBase):
         """
         Test a Python thing, based on which test runner is installed.
 
-        TODO: Figure out how to invoke target `poe check`, which is popular amongst
-              users of `pueblo`. It bundles linter/checkstyle and software test targets
-              into a single entrypoint, similar to what `gradle check` is doing.
+        First, try a high-level target of some sort of management tool,
+        discover its targets, and invoke `check` or `test`.
+
+        When no high-level tool can be discovered, just invoke `pytest`.
         """
 
+        # On Poetry projects, invoke poetry/pytest.
+        # TODO: Also allow using Poetry with other task runners, see below.
         if self.has_poetry_lock:
             # TODO: poetry run which pytest
             run_command("poetry run pytest --config-file=.")
 
         else:
+            uses_poe = self.has_pyproject_toml and self.pyproject_has_string("[tool.poe.tasks]")
             has_pytest = shutil.which("pytest") is not None
-            if has_pytest:
+
+            # When a `pyproject.toml` file includes `poethepoet` task definitions, try to
+            # invoke sensible targets like `check` or `test`. This is popular amongst users
+            # of `pueblo` and friends.
+            # `poe check` bundles linter/checkstyle and software test targets into a single
+            # entrypoint, similar to how `gradle check` is doing it.
+            if uses_poe:
+                candidates = ["check", "test"]
+                poe_tasks = self.get_poe_tasks()
+                success = False
+                for candidate in candidates:
+                    if candidate in poe_tasks:
+                        run_command(f"poe {candidate}")
+                        success = True
+                        break
+                if not success:
+                    raise RuntimeError(f"Failed to discover poe task from candidates: {candidates}")
+
+            elif has_pytest:
                 run_command("pytest")
             else:
                 raise NotImplementedError("No handler to invoke Python item")
+
+    def pyproject_has_string(self, needle: str) -> bool:
+        """
+        Check whether `pyproject.toml` file contains given string.
+        """
+        pyproject_toml_file = self.path / "pyproject.toml"
+        pyproject_toml = pyproject_toml_file.read_text()
+        return needle in pyproject_toml
+
+    def get_poe_tasks(self) -> t.List[str]:
+        """
+        From `poethepoet._list_tasks`.
+        """
+        try:
+            from poethepoet.config import PoeConfig
+
+            config = PoeConfig()
+            config.load()
+            return [task for task in config.tasks.keys() if task and task[0] != "_"]
+        except Exception as ex:  # pylint: disable=broad-except
+            # this happens if there's no pyproject.toml present
+            raise ValueError(f"Discovering poe task names failed: {ex}") from ex
 
 
 class RubyRunner(RunnerBase):

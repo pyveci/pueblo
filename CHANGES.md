@@ -7,6 +7,7 @@
 - ngr: Gradle test runner failed to invoke `./gradlew install` because such a
   target did not exist.
 - ngr: Fix Gradle test runner by only conditionally invoking `gradle wrapper`
+- ngr: Add capability to invoke projects using the `poethepoet` task runner
  
 ## 2023-11-06 v0.0.3
 - ngr: Fix `contextlib.chdir` only available on Python 3.11 and newer
