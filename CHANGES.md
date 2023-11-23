@@ -6,6 +6,7 @@
 - Dependencies (extras): Remove "ngr", add "notebook", link "test" to "testing"
 - ngr: Gradle test runner failed to invoke `./gradlew install` because such a
   target did not exist.
+- ngr: Fix Gradle test runner by only conditionally invoking `gradle wrapper`
  
 ## 2023-11-06 v0.0.3
 - ngr: Fix `contextlib.chdir` only available on Python 3.11 and newer
