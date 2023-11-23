@@ -249,7 +249,7 @@ class JavaRunner(RunnerBase):
         elif self.has_pom_xml:
             run_command("mvn test")
         elif self.has_gradle_files:
-            run_command("./gradlew check")
+            run_command("./gradlew check --info")
         else:
             raise NotImplementedError("Unable to invoke target: test")
 
