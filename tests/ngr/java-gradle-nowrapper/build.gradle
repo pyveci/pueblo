@@ -1,0 +1,43 @@
+/**
+ * Test project for `pueblo.ngr`.
+ */
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'application'
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+jar {
+    archiveBaseName = 'pyveci-ngr-testdrive'
+    archiveVersion = '0.0.1-SNAPSHOT'
+}
+
+application {
+}
+
+check {
+}
+
+processResources.destinationDir = compileJava.destinationDir
+compileJava.dependsOn processResources

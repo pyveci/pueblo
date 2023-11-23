@@ -235,7 +235,7 @@ class JavaRunner(RunnerBase):
         if self.has_pom_xml:
             run_command("mvn install")
         elif self.has_gradle_files:
-            if shutil.which("gradle"):
+            if not (self.path / "gradlew").exists():
                 run_command("gradle wrapper")
         else:
             raise NotImplementedError("Unable to invoke target: install")
