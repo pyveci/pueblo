@@ -92,7 +92,7 @@ nlp = [
 ]
 notebook = [
   "nbclient<0.10",
-  "nbdime<4",
+  "nbdime<5",
   "notebook<8",
   "pytest-notebook<0.10",
 ]
