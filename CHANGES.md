@@ -11,6 +11,8 @@
 - Dependencies: Update to nbdime 4 and pytest-notebook 0.10
 - Add `pueblo.io.to_io` utility function
 - ngr: Improve .NET runner by accepting `--dotnet-version` command-line option
+- ngr: Fix Gradle test runner by wiping existing Gradle wrappers, to accommodate
+  for contemporary versions of Java
  
 ## 2023-11-06 v0.0.3
 - ngr: Fix `contextlib.chdir` only available on Python 3.11 and newer

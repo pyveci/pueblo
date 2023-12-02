@@ -230,10 +230,14 @@ class JavaRunner(RunnerBase):
     def __post_init__(self) -> None:
         self.has_pom_xml: t.Optional[bool] = None
         self.has_gradle_files: t.Optional[bool] = None
+        self.is_gradle_installed: t.Optional[bool] = None
+        self.has_gradle_wrapper: t.Optional[bool] = None
 
     def peek(self) -> None:
         self.has_pom_xml = mp(self.path, "pom.xml")
         self.has_gradle_files = mp(self.path, "*.gradle")
+        self.is_gradle_installed = bool(shutil.which("gradle"))
+        self.has_gradle_wrapper = (self.path / "gradlew").exists()
 
         if self.has_pom_xml or self.has_gradle_files:
             self.type = ItemType.JAVA
@@ -251,8 +255,15 @@ class JavaRunner(RunnerBase):
         if self.has_pom_xml:
             run_command("mvn install")
         elif self.has_gradle_files:
-            if not (self.path / "gradlew").exists():
+            # When `gradle` is installed, wipe the
+            # existing wrapper, and generate a new one.
+            if self.is_gradle_installed:
+                if self.has_gradle_wrapper:
+                    (self.path / "gradlew").unlink(missing_ok=True)
                 run_command("gradle wrapper")
+            self.has_gradle_wrapper = (self.path / "gradlew").exists()
+            if not self.has_gradle_wrapper:
+                logger.error("No Gradle wrapper found, and no one could be generated. Consider installing `gradle`.")
         else:
             raise NotImplementedError("Unable to invoke target: install")
 
