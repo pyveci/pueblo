@@ -1,4 +1,7 @@
+# ruff: noqa: E402
 import pytest
+
+pytest.importorskip("pathlibfs")
 from pathlibfs import Path as PathPlus
 
 from pueblo.io import to_io
