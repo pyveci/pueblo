@@ -27,6 +27,7 @@ def read_command_line_arguments(args=None, prog_name=None):
     test = subparsers.add_parser("test", help="Invoke test suites")
     test.add_argument("target")
     test.add_argument("--accept-no-venv", action="store_true", help="Whether to accept not running in venv")
+    test.add_argument("--dotnet-version", type=str, help=".NET version, like `net6.0`, `net7.0`, or `5.0.x`, `6.0.x`")
     test.add_argument("--npgsql-version", type=str, help="Version of Npgsql")
 
     return parser, parser.parse_args(args=args)

@@ -75,12 +75,28 @@ class DotNetRunner(RunnerBase):
     def peek(self) -> None:
         self.has_csproj = mp(self.path, "*.csproj")
 
-        dotnet_version_full = subprocess.check_output(shlex.split("dotnet --version")).decode().strip()  # noqa: S603
-        dotnet_version_major = dotnet_version_full[0]
+        dotnet_version_major = self.get_dotnet_framework_version()
         self.framework = f"net{dotnet_version_major}.0"
 
         if self.has_csproj:
             self.type = ItemType.DOTNET
+
+    def get_dotnet_framework_version(self) -> int:
+        """
+        In:  Either one of `5.0.x`, `6.0.x`, or `net6.0`, `net7.0`,
+             or fallback to `dotnet --version` => `7.0.202`.
+        Out: `net5.0`, `net6.0`, `net7.0`, etc.
+        """
+        dotnet_version = self.options.get("dotnet_version")
+        if dotnet_version:
+            if dotnet_version.startswith("net"):
+                return dotnet_version[3]
+            dotnet_version_full = dotnet_version
+        else:
+            dotnet_version_full = (
+                subprocess.check_output(shlex.split("dotnet --version")).decode().strip()  # noqa: S603
+            )
+        return int(dotnet_version_full[0])
 
     def info(self) -> None:
         """
@@ -98,10 +114,10 @@ class DotNetRunner(RunnerBase):
         run_command("dotnet list . package")
 
     def adjust_npgql_version(self):
-        if "npgsql_version" not in self.options:
+        npgsql_version = self.options.get("npgsql_version")
+        if not npgsql_version:
             logger.info("[MATRIX] Not modifying Npgsql version")
             return
-        npgsql_version = self.options.get("npgsql_version")
         logger.info(f"[MATRIX] Modifying Npgsql version: {npgsql_version}")
         cmd = f"""
             sed -E 's!<PackageReference Include="Npgsql" Version=".+?" />!<PackageReference Include="Npgsql" Version="{npgsql_version}" />!' \
