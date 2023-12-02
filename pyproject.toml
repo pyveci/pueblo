@@ -69,7 +69,7 @@ dependencies = [
 
 [project.optional-dependencies]
 all = [
-  "pueblo[cli,nlp,notebook,testing,web]",
+  "pueblo[cli,fileio,nlp,notebook,testing,web]",
 ]
 cli = [
   "click<9",
@@ -84,6 +84,11 @@ develop = [
   "pyproject-fmt<1.6,>=1.3",
   "ruff==0.1.6",
   "validate-pyproject<0.16",
+]
+fileio = [
+  "fsspec[adlfs,dask,gcs,git,github,http,s3,smb]<2023.11",
+  "pathlibfs<0.6",
+  "yarl<1.10",
 ]
 nlp = [
   "aiohttp<3.10",

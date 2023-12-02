@@ -9,6 +9,7 @@
 - ngr: Fix Gradle test runner by only conditionally invoking `gradle wrapper`
 - ngr: Add capability to invoke projects using the `poethepoet` task runner
 - Dependencies: Update to nbdime 4 and pytest-notebook 0.10
+- Add `pueblo.io.to_io` utility function
  
 ## 2023-11-06 v0.0.3
 - ngr: Fix `contextlib.chdir` only available on Python 3.11 and newer
