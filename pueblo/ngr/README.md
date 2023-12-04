@@ -64,6 +64,25 @@ ngr test tests/ngr/rust
 
 - Look at https://pypi.org/project/ur/.
 
+- Use Chainguard OCI Images
+
+  - https://github.com/chainguard-images/images
+  - https://edu.chainguard.dev/chainguard/chainguard-images/reference/
+
+  ```
+  docker run --rm -it cgr.dev/chainguard/bash 'bash --version'
+  docker run --rm -it cgr.dev/chainguard/deno --version
+  docker run --rm -it cgr.dev/chainguard/go version
+  docker run --rm -it cgr.dev/chainguard/gradle --version
+  docker run --rm -it cgr.dev/chainguard/jdk java --version
+  docker run --rm -it cgr.dev/chainguard/maven --version
+  docker run --rm -it cgr.dev/chainguard/node --version
+  docker run --rm -it cgr.dev/chainguard/php --version
+  docker run --rm -it cgr.dev/chainguard/python --version
+  docker run --rm -it cgr.dev/chainguard/ruby --version
+  docker run --rm -it cgr.dev/chainguard/rust --version
+  ```
+
 
 [crate-qa]: https://github.com/crate/crate-qa
 [cratedb-examples]: https://github.com/crate/cratedb-examples
