@@ -19,7 +19,7 @@ default-tag = "0.0.0"
 name = "pueblo"
 description = "Pueblo - a Python toolbox library."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.7"
 license = { text = "LGPL 3, EUPL 1.2" }
 keywords = [
   "general purpose",
@@ -45,6 +45,7 @@ classifiers = [
   "Operating System :: Unix",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
@@ -63,7 +64,7 @@ dynamic = [
 
 dependencies = [
   'contextlib-chdir; python_version < "3.11"',
-  'importlib-metadata; python_version <= "3.7"',
+  'importlib-metadata; python_version < "3.8"',
   "platformdirs<5",
 ]
 
@@ -73,7 +74,7 @@ all = [
 ]
 cli = [
   "click<9",
-  "click-aliases<2",
+  "click-aliases<2,>=1.0.4",
   "colorlog<7",
   "python-dotenv<2",
 ]
