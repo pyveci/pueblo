@@ -41,9 +41,16 @@ def open_url(url: str) -> PathPlus:
     -----------
     fs = Path("github://path/to/document.md", username="foobar", token="ghp_lalala", org="acme", repo="sweet-camino")
     """
-    uri = URL(url)
+    uri = None
+    try:
+        uri = URL(url)
+    except ValueError as ex:
+        if "host is required for absolute urls" in str(ex):
+            pass
+        else:
+            raise
 
-    if uri.scheme.startswith("github+https"):
+    if uri and uri.scheme.startswith("github+https"):
         path_fragments = uri.path.split("/")[1:]
         path_kwargs = {
             "username": uri.user,
@@ -60,7 +67,10 @@ def open_url(url: str) -> PathPlus:
         path = PathPlus(downstream_url, **path_kwargs)
 
     else:
-        path = PathPlus(url)
+        kwargs = {}
+        if url.startswith("s3://"):
+            kwargs["anon"] = True
+        path = PathPlus(url, **kwargs)
     return path
 
 
