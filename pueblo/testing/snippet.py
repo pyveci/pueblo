@@ -5,6 +5,13 @@ from pathlib import Path
 import pytest
 
 
+def fourty_two() -> int:
+    """
+    A dummy function to be patched by testing machinery.
+    """
+    return 42
+
+
 def pytest_module_function(request: pytest.FixtureRequest, filepath: t.Union[str, Path], entrypoint: str = "main"):
     """
     From individual Python file, collect and wrap the `main` function into a test case.
