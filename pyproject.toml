@@ -70,7 +70,7 @@ dependencies = [
 
 [project.optional-dependencies]
 all = [
-  "pueblo[cli,dataframe,fileio,nlp,notebook,testing,web]",
+  "pueblo[cli,dataframe,fileio,nlp,notebook,proc,testing,web]",
 ]
 cli = [
   "click<9",
@@ -108,6 +108,9 @@ notebook = [
   "notebook<8",
   "pytest-notebook<0.11",
   "testbook<0.5",
+]
+proc = [
+  "psutil<6",
 ]
 release = [
   "build<2",
