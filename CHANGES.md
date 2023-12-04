@@ -14,6 +14,7 @@
 - ngr: Fix Gradle test runner by wiping existing Gradle wrappers, to accommodate
   for contemporary versions of Java
 - Add support for Python 3.7
+- Add `testbook` to `notebook` subsystem
  
 ## 2023-11-06 v0.0.3
 - ngr: Fix `contextlib.chdir` only available on Python 3.11 and newer
