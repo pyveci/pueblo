@@ -15,6 +15,8 @@
   for contemporary versions of Java
 - Add support for Python 3.7
 - Add `testbook` to `notebook` subsystem
+- Add `pueblo.util.proc.process` utility. It is a wrapper around
+  `subprocess.Popen` to also terminate child processes after exiting.
  
 ## 2023-11-06 v0.0.3
 - ngr: Fix `contextlib.chdir` only available on Python 3.11 and newer
