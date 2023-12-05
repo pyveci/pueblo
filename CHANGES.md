@@ -1,6 +1,8 @@
 # Changes for pueblo
 
 ## Unreleased
+
+## 2023-12-05 v0.0.4
 - Add a few testing helper utilities to `pueblo.testing`
 - Fix dependencies for `test` extra by downgrading to `nbdime<4`
 - Dependencies (extras): Remove "ngr", add "notebook", link "test" to "testing"
