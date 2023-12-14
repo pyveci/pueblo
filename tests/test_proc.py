@@ -1,6 +1,7 @@
 import pytest
 
-from pueblo.util.proc import process
+proc = pytest.importorskip("pueblo.util.proc")
+process = proc.process
 
 
 def test_process_success(tmp_path):

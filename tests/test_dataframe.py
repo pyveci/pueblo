@@ -1,6 +1,9 @@
+# ruff: noqa: E402
 from pathlib import Path
 
-import pandas as pd
+import pytest
+
+pd = pytest.importorskip("pandas")
 from dask.utils import is_dataframe_like
 from pandas._testing import raise_assert_detail
 
