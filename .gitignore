@@ -1,5 +1,6 @@
 __pycache__
 .idea
+.meltano
 .venv*
 *.egg-info
 .coverage*

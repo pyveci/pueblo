@@ -1,6 +1,7 @@
 # Changes for pueblo
 
 ## Unreleased
+- ngr: Add capability to invoke Meltano projects
 
 ## 2023-12-05 v0.0.4
 - Add a few testing helper utilities to `pueblo.testing`

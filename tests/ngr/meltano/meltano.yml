@@ -1,0 +1,40 @@
+# Example Meltano project for `pueblo.ngr`.
+---
+version: 1
+send_anonymous_usage_stats: false
+environments:
+- name: dev
+default_environment: dev
+project_id: ngr-example
+plugins:
+
+  extractors:
+
+  - name: tap-smoke-test
+    namespace: tap_smoke_test
+    pip_url: git+https://github.com/meltano/tap-smoke-test.git
+    executable: tap-smoke-test
+    config:
+      streams:
+      - stream_name: animals
+        input_filename: https://gitlab.com/meltano/tap-smoke-test/-/raw/main/demo-data/animals-data.jsonl
+      - stream_name: page_views
+        input_filename: https://gitlab.com/meltano/tap-smoke-test/-/raw/main/demo-data/pageviews-data.jsonl
+      stream_maps:
+        animals:
+          __key_properties__: [ "id" ]
+        page_views:
+          __key_properties__: [ "vistor_id" ]
+
+  loaders:
+
+  - name: target-csv
+    variant: hotgluexyz
+    config:
+      # To write CSV files to the project root, set an empty string ("").
+      destination_path: ""
+
+jobs:
+  - name: test
+    tasks:
+      - tap-smoke-test target-csv

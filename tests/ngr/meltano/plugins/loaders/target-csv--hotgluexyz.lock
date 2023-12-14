@@ -1,0 +1,62 @@
+{
+  "plugin_type": "loaders",
+  "name": "target-csv",
+  "namespace": "target_csv",
+  "variant": "hotgluexyz",
+  "label": "Comma Separated Values (CSV)",
+  "docs": "https://hub.meltano.com/loaders/target-csv--hotgluexyz",
+  "repo": "https://github.com/hotgluexyz/target-csv",
+  "pip_url": "git+https://github.com/hotgluexyz/target-csv.git",
+  "description": "CSV loader",
+  "logo_url": "https://hub.meltano.com/assets/logos/loaders/csv.png",
+  "settings": [
+    {
+      "name": "destination_path",
+      "value": "output",
+      "label": "Destination Path",
+      "description": "Sets the destination path the CSV files are written to, relative to\nthe project root.\n\nThe directory needs to exist already, it will not be created\nautomatically.\n\nTo write CSV files to the project root, set an empty string (`\"\"`).\n"
+    },
+    {
+      "name": "delimiter",
+      "kind": "options",
+      "value": ",",
+      "label": "Delimiter",
+      "description": "A one-character string used to separate fields. It defaults to a comma (,).",
+      "options": [
+        {
+          "label": "Comma (,)",
+          "value": ","
+        },
+        {
+          "label": "Tab (  )",
+          "value": "\\t"
+        },
+        {
+          "label": "Semi-colon (;)",
+          "value": ";"
+        },
+        {
+          "label": "Pipe (|)",
+          "value": "|"
+        }
+      ]
+    },
+    {
+      "name": "quotechar",
+      "kind": "options",
+      "value": "'",
+      "label": "Quote Character",
+      "description": "A one-character string used to quote fields containing special characters, such as the delimiter or quotechar, or which contain new-line characters. It defaults to single quote (').",
+      "options": [
+        {
+          "label": "Double Quote (\")",
+          "value": "\""
+        },
+        {
+          "label": "Single Quote (')",
+          "value": "'"
+        }
+      ]
+    }
+  ]
+}
