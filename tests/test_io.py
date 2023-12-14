@@ -2,8 +2,9 @@
 import dataclasses
 import typing as t
 
-import magic
 import pytest
+
+magic = pytest.importorskip("magic")
 
 pytest.importorskip("pathlibfs")
 from pathlibfs import Path as PathPlus
