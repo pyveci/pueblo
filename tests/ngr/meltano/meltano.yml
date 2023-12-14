@@ -12,7 +12,7 @@ plugins:
 
   - name: tap-smoke-test
     namespace: tap_smoke_test
-    pip_url: git+https://github.com/meltano/tap-smoke-test.git
+    pip_url: git+https://github.com/meltano/tap-smoke-test.git@python3.12
     executable: tap-smoke-test
     config:
       streams:
