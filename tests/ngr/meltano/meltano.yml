@@ -29,10 +29,11 @@ plugins:
   loaders:
 
   - name: target-csv
-    variant: hotgluexyz
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/target-csv@1335395
     config:
       # To write CSV files to the project root, set an empty string ("").
-      destination_path: ""
+      output_path_prefix: ""
 
 jobs:
   - name: test

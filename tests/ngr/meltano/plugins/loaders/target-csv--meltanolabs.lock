@@ -1,0 +1,94 @@
+{
+  "plugin_type": "loaders",
+  "name": "target-csv",
+  "namespace": "target_csv",
+  "variant": "meltanolabs",
+  "label": "Comma Separated Values (CSV)",
+  "docs": "https://hub.meltano.com/loaders/target-csv--meltanolabs",
+  "repo": "https://github.com/MeltanoLabs/target-csv",
+  "pip_url": "git+https://github.com/MeltanoLabs/target-csv.git",
+  "executable": "target-csv",
+  "description": "CSV loader",
+  "logo_url": "https://hub.meltano.com/assets/logos/loaders/csv.png",
+  "capabilities": [
+    "about",
+    "schema-flattening",
+    "stream-maps"
+  ],
+  "settings_group_validation": [
+    []
+  ],
+  "settings": [
+    {
+      "name": "datestamp_format",
+      "kind": "string",
+      "value": "%Y-%m-%d",
+      "label": "Datestamp Format",
+      "description": "A python format string to use when outputting the `{datestamp}` string. For reference, see: https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes"
+    },
+    {
+      "name": "file_naming_scheme",
+      "kind": "string",
+      "value": "{stream_name}.csv",
+      "label": "File Naming Scheme",
+      "description": "The scheme with which output files will be named. Naming scheme may leverage any of the following substitutions: \n\n- `{stream_name}`- `{datestamp}`- `{timestamp}`"
+    },
+    {
+      "name": "flattening_enabled",
+      "kind": "boolean",
+      "label": "Flattening Enabled",
+      "description": "'True' to enable schema flattening and automatically expand nested properties."
+    },
+    {
+      "name": "flattening_max_depth",
+      "kind": "integer",
+      "label": "Flattening Max Depth",
+      "description": "The max depth to flatten schemas."
+    },
+    {
+      "name": "output_path_prefix",
+      "kind": "string",
+      "label": "Output Path Prefix",
+      "description": "Optional path prefix which will be prepended to the file path indicated by `file_naming_schema`."
+    },
+    {
+      "name": "overwrite_behavior",
+      "kind": "string",
+      "value": "replace_file",
+      "label": "Overwrite Behavior",
+      "description": "Determines the overwrite behavior if destination file already exists. Must be one of the following string values: \n\n- `append_records` (default) - append records at the insertion point\n- `replace_file` - replace entire file using `default_CSV_template`\n"
+    },
+    {
+      "name": "record_sort_property_name",
+      "kind": "string",
+      "label": "Record Sort Property Name",
+      "description": "A property in the record which will be used as a sort key.\n\nIf this property is omitted, records will not be sorted."
+    },
+    {
+      "name": "stream_map_config",
+      "kind": "object",
+      "label": "Stream Map Config",
+      "description": "User-defined config values to be used within map expressions."
+    },
+    {
+      "name": "stream_maps",
+      "kind": "object",
+      "label": "Stream Maps",
+      "description": "Allows inline stream transformations and aliasing. For more information see: https://sdk.meltano.com/en/latest/stream_maps.html"
+    },
+    {
+      "name": "timestamp_format",
+      "kind": "string",
+      "value": "%Y-%m-%d.T%H%M%S",
+      "label": "Timestamp Format",
+      "description": "A python format string to use when outputting the `{timestamp}` string. For reference, see: https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes"
+    },
+    {
+      "name": "timestamp_timezone",
+      "kind": "string",
+      "value": "UTC",
+      "label": "Timestamp Timezone",
+      "description": "The timezone code or name to use when generating `{timestamp}` and `{datestamp}`. Defaults to 'UTC'. For a list of possible values, please see: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+    }
+  ]
+}
