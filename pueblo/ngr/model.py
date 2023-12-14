@@ -10,6 +10,7 @@ class ItemType(Enum):
     JAVASCRIPT = "javascript"
     JULIA = "julia"
     MAKE = "make"
+    MELTANO = "meltano"
     PHP = "php"
     PYTHON = "python"
     RUBY = "ruby"

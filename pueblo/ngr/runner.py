@@ -366,6 +366,37 @@ class MakeRunner(RunnerBase):
         run_command("make test")
 
 
+class MeltanoRunner(RunnerBase):
+    """
+    Invokes the `test` job on a Meltano project.
+    """
+
+    def __post_init__(self) -> None:
+        self.has_requirements_txt: t.Optional[bool] = None
+        self.has_meltano_yaml: t.Optional[bool] = None
+
+    def peek(self) -> None:
+        self.has_requirements_txt = mp(self.path, "requirements*.txt")
+        self.has_meltano_yaml = mp(self.path, "meltano.yml")
+
+        if self.has_meltano_yaml:
+            self.type = ItemType.MELTANO
+
+    def install(self) -> None:
+        """
+        Install requirements, and run `meltano install`.
+        """
+        if self.has_requirements_txt:
+            PythonRunner.install_requirements(self.path)
+        run_command("meltano install")
+
+    def test(self) -> None:
+        """
+        Invoke `meltano run test`.
+        """
+        run_command("meltano run test")
+
+
 class PhpRunner(RunnerBase):
     """
     Basic PHP runner.
@@ -443,11 +474,7 @@ class PythonRunner(RunnerBase):
         TODO: Heuristically figure out which "extra" packages to install from the outside.
               Example names for minimal test/development dependencies: dev,devel,tests,testing.
         """
-        requirements_txt = list(self.path.glob("requirements*.txt"))
-        if requirements_txt:
-            pip_requirements_args = [f"-r {item}" for item in requirements_txt]
-            pip_cmd = f"pip install {' '.join(pip_requirements_args)}"
-            run_command(pip_cmd)
+        self.install_requirements(self.path)
 
         if self.has_poetry_lock:
             # TODO: Add list of extras.
@@ -475,6 +502,14 @@ class PythonRunner(RunnerBase):
 
             if pip_install:
                 run_command("pip install --editable='.[develop,test]'")
+
+    @staticmethod
+    def install_requirements(path: Path):
+        requirements_txt = list(path.glob("requirements*.txt"))
+        if requirements_txt:
+            pip_requirements_args = [f"-r {item}" for item in requirements_txt]
+            pip_cmd = f"pip install {' '.join(pip_requirements_args)}"
+            run_command(pip_cmd)
 
     def test(self) -> None:
         """
