@@ -12,7 +12,7 @@ plugins:
 
   - name: tap-smoke-test
     namespace: tap_smoke_test
-    pip_url: git+https://github.com/meltano/tap-smoke-test.git@python3.12
+    pip_url: git+https://github.com/meltano/tap-smoke-test.git
     executable: tap-smoke-test
     config:
       streams:
@@ -30,7 +30,7 @@ plugins:
 
   - name: target-csv
     variant: meltanolabs
-    pip_url: git+https://github.com/singer-contrib/target-csv.git@python312
+    pip_url: git+https://github.com/MeltanoLabs/target-csv.git
     config:
       # To write CSV files to the project root, set an empty string ("").
       output_path_prefix: ""
