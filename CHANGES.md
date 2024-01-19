@@ -1,6 +1,10 @@
 # Changes for pueblo
 
 ## Unreleased
+
+## 2024-01-19 v0.0.5
+- Dependencies: Update to pytest-notebook >=0.10,
+  lower versions are not compatible any longer
 - ngr: Add capability to invoke Meltano projects
 
 ## 2023-12-05 v0.0.4
