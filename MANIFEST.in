@@ -1,2 +1,5 @@
 recursive-include pueblo *
 prune tests
+
+global-exclude */__pycache__/*
+global-exclude *.pyc

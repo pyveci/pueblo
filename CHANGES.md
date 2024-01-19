@@ -1,6 +1,7 @@
 # Changes for pueblo
 
 ## Unreleased
+- Packaging: Fix `MANIFEST.in`
 
 ## 2024-01-19 v0.0.5
 - Dependencies: Update to pytest-notebook >=0.10,
