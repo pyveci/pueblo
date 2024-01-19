@@ -1,6 +1,8 @@
 # Changes for pueblo
 
 ## Unreleased
+
+## 2024-01-19 v0.0.6
 - Packaging: Fix `MANIFEST.in`
 
 ## 2024-01-19 v0.0.5
