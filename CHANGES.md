@@ -1,6 +1,8 @@
 # Changes for pueblo
 
 ## Unreleased
+- Testing: Add `pueblo.testing.pandas.makeTimeDataFrame`, it was removed
+  from `pandas._testing` on behalf of pandas 2.2.0.
 
 ## 2024-01-19 v0.0.6
 - Packaging: Fix `MANIFEST.in`
