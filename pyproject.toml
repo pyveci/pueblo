@@ -85,7 +85,7 @@ dataframe = [
   "pyarrow",
 ]
 develop = [
-  "black[jupyter]<24",
+  "black[jupyter]<25",
   "mypy<2",
   "poethepoet<1",
   "pyproject-fmt>=1.3,<1.8",
