@@ -8,12 +8,14 @@ on:
     - '.github/workflows/ngr.yml'
     - 'pueblo/ngr/**'
     - 'tests/ngr/**'
+    - 'pyproject.toml'
   push:
     branches: [ main ]
     paths:
     - '.github/workflows/ngr.yml'
     - 'pueblo/ngr/**'
     - 'tests/ngr/**'
+    - 'pyproject.toml'
 
   # Allow job to be triggered manually.
   workflow_dispatch:
