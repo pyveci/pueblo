@@ -5,8 +5,9 @@ from collections import OrderedDict
 from inspect import signature
 
 import pandas as pd
-from pandas._testing import makeMixedDataFrame, makeTimeDataFrame
 from pandas.io.formats.info import DataFrameInfo
+
+from pueblo.testing.pandas import makeMixedDataFrame, makeTimeDataFrame
 
 logger = logging.getLogger(__name__)
 
