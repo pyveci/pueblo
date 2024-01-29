@@ -82,6 +82,7 @@ dataframe = [
   "dask",
   "numpy",
   "pandas",
+  "pyarrow",
 ]
 develop = [
   "black[jupyter]<24",
