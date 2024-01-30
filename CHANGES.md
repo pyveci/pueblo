@@ -1,6 +1,8 @@
 # Changes for pueblo
 
 ## Unreleased
+
+## 2024-01-30 v0.0.7
 - Testing: Add `pueblo.testing.pandas.{makeTimeDataFrame,makeMixedDataFrame}`.
   They have been removed from `pandas._testing` on behalf of pandas 2.2.0.
 
