@@ -61,7 +61,7 @@ jobs:
         otp-version: '26.1'
         elixir-version: '1.15'
     - name: Set up Elixir/Mix dependency cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: elixir-mix-cache
       with:
         path: tests/ngr/elixir/deps
