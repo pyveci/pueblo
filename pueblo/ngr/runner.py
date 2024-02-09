@@ -453,9 +453,14 @@ class PythonRunner(RunnerBase):
         self.has_requirements_txt = mp(self.path, "requirements*.txt")
         self.is_pipx_installed = shutil.which("pipx")
         self.is_poetry_installed = shutil.which("poetry")
+        self.has_ngr_type_file = mp(self.path, ".ngr-type")
 
         if self.has_python_files or self.has_setup_py or self.has_pyproject_toml or self.has_requirements_txt:
             self.type = ItemType.PYTHON
+
+        self.ngr_type: t.Union[str, None] = None
+        if self.has_ngr_type_file:
+            self.ngr_type = (self.path / ".ngr-type").read_text().strip()
 
     def run(self) -> None:
         # Sanity check. When invoking a Python thing within a sandbox,
@@ -547,6 +552,9 @@ class PythonRunner(RunnerBase):
                         break
                 if not success:
                     raise RuntimeError(f"Failed to discover poe task from candidates: {candidates}")
+
+            elif self.ngr_type == "python-unittest":
+                run_command("python -m unittest -vvv")
 
             elif has_pytest:
                 run_command("pytest")
