@@ -1,6 +1,7 @@
 # Changes for pueblo
 
 ## Unreleased
+- ngr: Add capability to invoke Python's built-in `unittest`
 
 ## 2024-01-30 v0.0.7
 - Testing: Add `pueblo.testing.pandas.{makeTimeDataFrame,makeMixedDataFrame}`.
