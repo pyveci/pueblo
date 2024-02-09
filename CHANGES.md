@@ -1,6 +1,8 @@
 # Changes for pueblo
 
 ## Unreleased
+
+## 2024-02-10 v0.0.8
 - ngr: Add capability to invoke Python's built-in `unittest`
 
 ## 2024-01-30 v0.0.7
