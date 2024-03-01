@@ -16,7 +16,7 @@ class SphinxInventoryDecoder:
     def as_text(self):
         inspect_main([self.url])
 
-    def as_markdown(self):
+    def as_markdown(self, omit_documents: bool = False):
         class MockConfig:
             intersphinx_timeout: int | None = None
             tls_verify = False
@@ -31,6 +31,8 @@ class SphinxInventoryDecoder:
         inv_data = fetch_inventory(app, "", self.url)
         print(f"# {self.name}")
         for key in sorted(inv_data or {}):
+            if omit_documents and key == "std:doc":
+                continue
             print(f"## {key}")
             inv_entries = sorted(inv_data[key].items())
             print("```text")
