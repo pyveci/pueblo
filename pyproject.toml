@@ -70,7 +70,7 @@ dependencies = [
 
 [project.optional-dependencies]
 all = [
-  "pueblo[cli,dataframe,fileio,nlp,notebook,proc,testing,web]",
+  "pueblo[cli,dataframe,fileio,nlp,notebook,proc,sphinx,testing,web]",
 ]
 cli = [
   "click<9",
@@ -116,6 +116,9 @@ proc = [
 release = [
   "build<2",
   "twine<6",
+]
+sphinx = [
+  "sphinx",
 ]
 test = [
   "pueblo[testing]",
