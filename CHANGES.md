@@ -1,6 +1,7 @@
 # Changes for pueblo
 
 ## Unreleased
+- Testing: Add `pueblo.testing.notebook.{list_path,generate_tests}`
 
 ## 2024-02-10 v0.0.8
 - ngr: Add capability to invoke Python's built-in `unittest`
