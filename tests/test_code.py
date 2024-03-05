@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pueblo.testing.notebook import monkeypatch_pytest_notebook_treat_cell_exit_as_notebook_skip
+from pueblo.testing.notebook import generate_tests, monkeypatch_pytest_notebook_treat_cell_exit_as_notebook_skip
 from pueblo.testing.snippet import pytest_module_function, pytest_notebook
 
 HERE = Path(__file__).parent
@@ -95,3 +95,20 @@ def test_notebook_patching():
             tb.execute()
         output = tb.cell_output_text(6)
         assert output == "33.33"
+
+
+def pytest_generate_tests(metafunc):
+    """
+    Generate test cases for Jupyter Notebooks, one test case per .ipynb file.
+    """
+    generate_tests(metafunc, path=TESTDATA_FOLDER)
+
+
+def test_notebook(notebook):
+    """
+    Execute Jupyter Notebook, one test case per .ipynb file.
+    """
+    from testbook import testbook
+
+    with testbook(notebook) as tb:
+        tb.execute()
