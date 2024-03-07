@@ -1,6 +1,8 @@
 # Changes for pueblo
 
 ## Unreleased
+
+## 2024-03-07 v0.0.9
 - Testing: Add `pueblo.testing.notebook.{list_path,generate_tests}`
 
 ## 2024-02-10 v0.0.8
