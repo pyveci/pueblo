@@ -123,7 +123,7 @@ test = [
 testing = [
   "coverage~=7.3",
   "pytest<8",
-  "pytest-cov<5",
+  "pytest-cov<6",
   "pytest-env<2",
   "pytest-mock<4",
 ]
