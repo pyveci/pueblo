@@ -90,7 +90,7 @@ develop = [
   "poethepoet<1",
   "pyproject-fmt>=1.3,<1.9",
   "ruff<0.5",
-  "validate-pyproject<0.17",
+  "validate-pyproject<0.19",
 ]
 fileio = [
   "fsspec[abfs,dask,gcs,git,github,http,s3,smb]<2024.4",
