@@ -101,7 +101,7 @@ fileio = [
 nlp = [
   "aiohttp<3.10",
   "langchain",
-  "unstructured<0.12",
+  "unstructured<0.15",
 ]
 notebook = [
   "nbclient<0.11",
