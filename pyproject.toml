@@ -111,7 +111,7 @@ notebook = [
   "testbook<0.5",
 ]
 proc = [
-  "psutil<6",
+  "psutil<7",
 ]
 release = [
   "build<2",
