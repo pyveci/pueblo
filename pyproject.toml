@@ -99,7 +99,7 @@ fileio = [
   "yarl<1.10",
 ]
 nlp = [
-  "aiohttp<3.10",
+  "aiohttp<3.11",
   "langchain",
   "unstructured<0.15",
 ]
