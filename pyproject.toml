@@ -93,7 +93,7 @@ develop = [
   "validate-pyproject<0.19",
 ]
 fileio = [
-  "fsspec[abfs,dask,gcs,git,github,http,s3,smb]<2024.7",
+  "fsspec[abfs,dask,gcs,git,github,http,s3,smb]<2024.10",
   "pathlibfs<0.6",
   "python-magic<0.5",
   "yarl<1.10",
