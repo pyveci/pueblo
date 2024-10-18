@@ -6,7 +6,7 @@ def nltk_init():
     """
     Initialize nltk upfront, so that it does not run stray output into Jupyter Notebooks.
     """
-    download_items = ["averaged_perceptron_tagger", "punkt"]
+    download_items = ["averaged_perceptron_tagger", "punkt", "punkt_tab"]
     import nltk
 
     for item in download_items:
