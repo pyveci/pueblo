@@ -11,25 +11,21 @@ requires = [
   "versioningit",
 ]
 
-[tool.versioningit.vcs]
-method = "git"
-default-tag = "0.0.0"
-
 [project]
 name = "pueblo"
 description = "Pueblo - a Python toolbox library."
 readme = "README.md"
-requires-python = ">=3.7"
-license = { text = "LGPL 3, EUPL 1.2" }
 keywords = [
   "general purpose",
   "library",
   "mixed",
   "pueblo",
 ]
+license = { text = "LGPL 3, EUPL 1.2" }
 authors = [
-  {name = "Andreas Motl", email = "andreas.motl@panodata.org"},
+  { name = "Andreas Motl", email = "andreas.motl@panodata.org" },
 ]
+requires-python = ">=3.7"
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Environment :: Console",
@@ -63,28 +59,27 @@ dynamic = [
 ]
 
 dependencies = [
-  'contextlib-chdir; python_version < "3.11"',
-  'importlib-metadata; python_version < "3.8"',
+  "contextlib-chdir; python_version<'3.11'",
+  "importlib-metadata; python_version<'3.8'",
   "platformdirs<5",
 ]
 
-[project.optional-dependencies]
-all = [
+optional-dependencies.all = [
   "pueblo[cli,dataframe,fileio,nlp,notebook,proc,testing,web]",
 ]
-cli = [
+optional-dependencies.cli = [
   "click<9",
   "click-aliases<2,>=1.0.4",
   "colorlog<7",
   "python-dotenv<2",
 ]
-dataframe = [
+optional-dependencies.dataframe = [
   "dask",
   "numpy",
   "pandas",
   "pyarrow",
 ]
-develop = [
+optional-dependencies.develop = [
   "black[jupyter]<25",
   "mypy<2",
   "poethepoet<1",
@@ -92,60 +87,101 @@ develop = [
   "ruff<0.7",
   "validate-pyproject<0.19",
 ]
-fileio = [
+optional-dependencies.fileio = [
   "fsspec[abfs,dask,gcs,git,github,http,s3,smb]<2024.7",
   "pathlibfs<0.6",
   "python-magic<0.5",
   "yarl<1.10",
 ]
-nlp = [
+optional-dependencies.nlp = [
   "aiohttp<3.11",
   "langchain",
   "unstructured<0.15",
 ]
-notebook = [
+optional-dependencies.notebook = [
   "nbclient<0.11",
   "nbdime<5",
   "notebook<8",
   "pytest-notebook<0.11,>=0.10",
   "testbook<0.5",
 ]
-proc = [
+optional-dependencies.proc = [
   "psutil<6",
 ]
-release = [
+optional-dependencies.release = [
   "build<2",
   "twine<6",
 ]
-test = [
+optional-dependencies.test = [
   "pueblo[testing]",
 ]
-testing = [
+optional-dependencies.testing = [
   "coverage~=7.3",
   "pytest<8",
   "pytest-cov<6",
   "pytest-env<2",
   "pytest-mock<4",
 ]
-web = [
+optional-dependencies.web = [
   "requests-cache<2",
 ]
-[project.scripts]
-ngr = "pueblo.ngr.cli:main"
-pueblo = "pueblo.cli:cli"
+urls.changelog = "https://github.com/pyveci/pueblo/blob/main/CHANGES.md"
+urls.documentation = "https://github.com/pyveci/pueblo"
+urls.homepage = "https://github.com/pyveci/pueblo"
+urls.repository = "https://github.com/pyveci/pueblo"
+scripts.ngr = "pueblo.ngr.cli:main"
+scripts.pueblo = "pueblo.cli:cli"
+
 [tool.setuptools]
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
-packages = ["pueblo"]
+packages = [ "pueblo" ]
 
-[project.urls]
-changelog = "https://github.com/pyveci/pueblo/blob/main/CHANGES.md"
-documentation = "https://github.com/pyveci/pueblo"
-homepage = "https://github.com/pyveci/pueblo"
-repository = "https://github.com/pyveci/pueblo"
 [tool.black]
 line-length = 120
 
 # extend-exclude = ""
+
+[tool.ruff]
+line-length = 120
+
+extend-exclude = [
+  "example_*",
+]
+
+lint.select = [
+  # Builtins
+  "A",
+  # Bugbear
+  "B",
+  # comprehensions
+  "C4",
+  # Pycodestyle
+  "E",
+  # eradicate
+  "ERA",
+  # Pyflakes
+  "F",
+  # isort
+  "I",
+  # pandas-vet
+  "PD",
+  # return
+  "RET",
+  # Bandit
+  "S",
+  # print
+  "T20",
+  "W",
+  # flake8-2020
+  "YTT",
+]
+
+lint.per-file-ignores."*.ipynb" = [
+  "PD901", # Avoid using the generic variable name `df` for DataFrames
+  "T201",  # `print` found
+]
+lint.per-file-ignores."__init__.py" = [ "F401" ] # `xxx` imported but unused
+lint.per-file-ignores."tests/*" = [ "S101" ] # Use of `assert` detected
 
 [tool.isort]
 profile = "black"
@@ -161,41 +197,40 @@ addopts = """
   """
 log_level = "DEBUG"
 log_cli_level = "DEBUG"
-testpaths = ["tests"]
+testpaths = [ "tests" ]
 xfail_strict = true
 markers = [
   "ngr",
 ]
 env = [
-    "PYDEVD_DISABLE_FILE_VALIDATION=1",
+  "PYDEVD_DISABLE_FILE_VALIDATION=1",
 ]
-
 
 # pytest-notebook settings
 nb_test_files = "true"
 nb_coverage = "false"
 nb_diff_ignore = [
-    "/metadata/language_info",
-    "/cells/*/execution_count",
-    "/cells/*/outputs/*/execution_count",
+  "/metadata/language_info",
+  "/cells/*/execution_count",
+  "/cells/*/outputs/*/execution_count",
 ]
 
 [tool.coverage.run]
 branch = false
-source = ["pueblo"]
+source = [ "pueblo" ]
 omit = [
-    "tests/*",
+  "tests/*",
 ]
 
 [tool.coverage.report]
 fail_under = 0
 show_missing = true
 omit = [
-    "tests/*",
+  "tests/*",
 ]
 
 [tool.mypy]
-packages = ["pueblo"]
+packages = [ "pueblo" ]
 exclude = [
 ]
 check_untyped_defs = true
@@ -209,45 +244,9 @@ strict_equality = true
 warn_unused_ignores = true
 warn_redundant_casts = true
 
-[tool.ruff]
-line-length = 120
-
-select = [
-  # Bandit
-  "S",
-  # Bugbear
-  "B",
-  # Builtins
-  "A",
-  # comprehensions
-  "C4",
-  # eradicate
-  "ERA",
-  # flake8-2020
-  "YTT",
-  # isort
-  "I",
-  # pandas-vet
-  "PD",
-  # print
-  "T20",
-  # Pycodestyle
-  "E",
-  "W",
-  # Pyflakes
-  "F",
-  # return
-  "RET",
-]
-
-extend-exclude = [
-  "example_*",
-]
-
-[tool.ruff.per-file-ignores]
-"__init__.py" = ["F401"]  # `xxx` imported but unused
-"tests/*" = ["S101"]  # Use of `assert` detected
-
+[tool.versioningit.vcs]
+method = "git"
+default-tag = "0.0.0"
 
 # ===================
 # Tasks configuration
@@ -271,8 +270,8 @@ lint = [
 test = "pytest -m 'not ngr'"
 test-full = "pytest"
 build = { cmd = "python -m build" }
-check = ["lint", "test"]
-check-full = ["lint", "test-full"]
+check = [ "lint", "test" ]
+check-full = [ "lint", "test-full" ]
 
 release = [
   { cmd = "python -m build" },
