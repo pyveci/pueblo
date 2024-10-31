@@ -1,3 +1,4 @@
+import sys
 from functools import lru_cache
 from pathlib import Path
 
@@ -43,6 +44,9 @@ def test_ngr_sample(sample: Path):
     """
     Invoke minimal `ngr test` target.
     """
+    if str(sample) == "ngr/meltano" and sys.version_info >= (3, 13):
+        raise pytest.skip("Meltano not available for Python 3.13 yet")
+
     runner = CliRunner()
 
     result = runner.invoke(
