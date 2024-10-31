@@ -39,10 +39,17 @@ class CachedWebResource:
         """
         logger.info(f"Acquiring web resource: {self.url}")
         from langchain.schema import Document
-        from unstructured.partition.html import partition_html
 
         response = http.get(self.url)
-        elements = partition_html(text=response.text)
+        metadata = {"source": self.url}
+        return Document(page_content=response.text, metadata=metadata)
+
+    def decode_html(self):
+        from langchain.schema import Document
+        from unstructured.partition.html import partition_html
+
+        doc = self.document_from_url()
+        elements = partition_html(text=doc.page_content)
         text = "\n\n".join([str(el) for el in elements])
         metadata = {"source": self.url}
         return Document(page_content=text, metadata=metadata)
@@ -51,7 +58,7 @@ class CachedWebResource:
         """
         Load URL resource, and split paragraphs in response into individual documents.
         """
-        from langchain.text_splitter import CharacterTextSplitter
+        from langchain_text_splitters import CharacterTextSplitter
 
         documents = self.fetch_single()
         text_splitter = CharacterTextSplitter(**kwargs)

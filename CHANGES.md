@@ -1,6 +1,7 @@
 # Changes for pueblo
 
 ## Unreleased
+- nlp: Updated dependencies langchain, langchain-text-splitters, unstructured
 
 ## 2024-03-07 v0.0.9
 - Testing: Add `pueblo.testing.notebook.{list_path,generate_tests}`
