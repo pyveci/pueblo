@@ -37,7 +37,7 @@
 ## Setup
 
 ```shell
-pip install --upgrade pueblo
+uv pip install --upgrade pueblo
 ```
 
 After installation, you can verify if it was successful.
