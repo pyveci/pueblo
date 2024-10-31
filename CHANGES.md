@@ -2,6 +2,7 @@
 
 ## Unreleased
 - nlp: Updated dependencies langchain, langchain-text-splitters, unstructured
+- CI: Verify compatibility with Python 3.13
 
 ## 2024-03-07 v0.0.9
 - Testing: Add `pueblo.testing.notebook.{list_path,generate_tests}`
