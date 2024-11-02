@@ -1,0 +1,190 @@
+import importlib.util
+import sys
+import typing as t
+from pathlib import Path
+from types import ModuleType
+from urllib.parse import urlparse
+
+from attrs import define
+
+
+class InvalidTarget(Exception):
+    pass
+
+
+@define
+class ApplicationAddress:
+    target: str
+    property: str
+    is_url: bool = False
+
+    @classmethod
+    def from_spec(cls, spec: str, default_property=None):
+        """
+        Parse entrypoint specification to application address instance.
+
+        https://packaging.python.org/en/latest/specifications/entry-points/
+
+        :param spec: Entrypoint address (e.g. module 'acme.app:main', file path '/path/to/acme/app.py:main')
+        :param default_property: Name of the property to load if not specified in target (default: "api")
+        :return:
+        """
+        if cls.is_valid_url(spec):
+            # Decode launch target location address from URL.
+            # URL: https://example.org/acme/app.py#foo
+            url = urlparse(spec)
+            frag = url.fragment
+            target = url.geturl().replace(f"#{frag}", "")
+            prop = frag
+            is_url = True
+
+        else:
+            # Decode launch target location address from Python module or path.
+            # Module: acme.app:foo
+            # Path:   /path/to/acme/app.py:foo
+            target_fragments = spec.split(":")
+            if len(target_fragments) > 1:
+                target = target_fragments[0]
+                prop = target_fragments[1]
+            else:
+                target = target_fragments[0]
+                if default_property is None:
+                    raise ValueError("Property can not be discovered, and no default property was supplied")
+                prop = default_property
+            is_url = False
+
+        return cls(target=target, property=prop, is_url=is_url)
+
+    @staticmethod
+    def is_valid_url(url) -> bool:
+        try:
+            result = urlparse(url)
+            return all([result.scheme, result.netloc])
+        except ValueError:
+            return False
+
+    def install(self):
+        pass
+
+
+@define
+class SingleFileApplication:
+    """
+    Load Python code from any source, addressed by file path or module name.
+
+    https://packaging.python.org/en/latest/specifications/entry-points/
+
+    Warning:
+        This component executes arbitrary Python code. Ensure the target is from a trusted
+        source to prevent security vulnerabilities.
+
+    Args:
+        address: Application entrypoint address
+
+    Example:
+        >>> app = SingleFileApplication.from_spec("myapp.api:server")
+        >>> app.load()
+        >>> app.run()
+    """  # noqa: E501
+
+    address: ApplicationAddress
+    _module: t.Optional[ModuleType] = None
+    _entrypoint: t.Optional[t.Callable] = None
+
+    @classmethod
+    def from_spec(cls, spec: str, default_property=None):
+        address = ApplicationAddress.from_spec(spec=spec, default_property=default_property)
+        return cls(address=address)
+
+    def run(self, *args, **kwargs):
+        return t.cast(t.Callable, self._entrypoint)(*args, **kwargs)
+
+    def load(self):
+        target = self.address.target
+        prop = self.address.property
+
+        # Sanity checks, as suggested by @coderabbitai. Thanks.
+        if not target or (":" in target and len(target.split(":")) != 2):
+            raise InvalidTarget(
+                f"Invalid target format: {target}. "
+                "Use either a Python module entrypoint specification, "
+                "a filesystem path, or a remote URL."
+            )
+
+        # Validate property name follows Python identifier rules.
+        if not prop.isidentifier():
+            raise ValueError(f"Invalid property name: {prop}")
+
+        # Import launch target. Treat input location either as a filesystem path
+        # (/path/to/acme/app.py), or as a module address specification (acme.app).
+        self.load_any()
+
+        # Invoke launch target.
+        msg_prefix = f"Failed to import: {target}"
+        try:
+            entrypoint = getattr(self._module, prop, None)
+            if entrypoint is None:
+                raise AttributeError(f"Module has no instance attribute '{prop}'")
+            if not callable(entrypoint):
+                raise TypeError(f"Entrypoint is not callable: {entrypoint}")
+            self._entrypoint = entrypoint
+        except AttributeError as ex:
+            raise AttributeError(f"{msg_prefix}: {ex}") from ex
+        except ImportError as ex:
+            raise ImportError(f"{msg_prefix}: {ex}") from ex
+        except TypeError as ex:
+            raise TypeError(f"{msg_prefix}: {ex}") from ex
+        except Exception as ex:
+            raise RuntimeError(f"{msg_prefix}: Unexpected error: {ex}") from ex
+
+    def load_any(self):
+        if self.address.is_url:
+            mod = None
+        else:
+            path = Path(self.address.target)
+            if path.is_file():
+                mod = self.load_file(path)
+            else:
+                mod = importlib.import_module(self.address.target)
+        self._module = mod
+
+    @staticmethod
+    def load_file(path: Path) -> ModuleType:
+        """
+        Load a Python file as a module using importlib.
+
+        Args:
+            path: Path to the Python file to load
+
+        Returns:
+            The loaded module object
+
+        Raises:
+            ImportError: If the module cannot be loaded
+        """
+
+        # Validate file extension
+        if path.suffix != ".py":
+            raise ValueError(f"File must have .py extension: {path}")
+
+        # Use absolute path hash for uniqueness of name.
+        unique_id = hash(str(path.absolute()))
+        name = f"__{path.stem}_{unique_id}__"
+
+        spec = importlib.util.spec_from_file_location(name, path)
+        if spec is None or spec.loader is None:
+            raise ImportError(f"Failed loading module from file: {path}")
+        app = importlib.util.module_from_spec(spec)
+        sys.modules[name] = app
+        try:
+            spec.loader.exec_module(app)
+            return app
+        except Exception as ex:
+            sys.modules.pop(name, None)
+            raise ImportError(f"Failed to execute module '{app}': {ex}") from ex
+
+
+def run(spec: str, options: t.Dict[str, str]):
+    app = SingleFileApplication.from_spec(spec=spec)
+    app.load()
+    return app.run()
