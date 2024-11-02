@@ -4,23 +4,22 @@ import sys
 import typing as t
 from argparse import ArgumentDefaultsHelpFormatter
 
-from attrs import define
-
 from pueblo import __version__, setup_logging
 
 logger = logging.getLogger()
 
 
-@define
 class MiniRunner:
-    name: t.Any
-    args_input: t.Any
 
-    _parser: t.Optional[argparse.ArgumentParser] = None
-    _parsed_args: t.Optional[argparse.Namespace] = None
-    _runner: t.Optional[t.Callable] = None
+    def __init__(self, name: t.Any, args_input: t.Any):
 
-    def __attrs_post_init__(self):
+        self.name = name
+        self.args_input = args_input
+
+        self._parser: t.Optional[argparse.ArgumentParser] = None
+        self._parsed_args: t.Optional[argparse.Namespace] = None
+        self._runner: t.Optional[t.Callable] = None
+
         self.setup()
 
     @property

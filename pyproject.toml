@@ -66,7 +66,7 @@ dependencies = [
 ]
 
 optional-dependencies.all = [
-  "pueblo[cli,dataframe,fileio,nlp,notebook,proc,testing,web]",
+  "pueblo[cli,dataframe,fileio,nlp,notebook,proc,sfa,testing,web]",
 ]
 optional-dependencies.cli = [
   "click<9",
@@ -114,6 +114,9 @@ optional-dependencies.release = [
   "build<2",
   "twine<7",
 ]
+optional-dependencies.sfa = [
+  "attrs",
+]
 optional-dependencies.test = [
   "pueblo[testing]",
 ]
@@ -137,6 +140,7 @@ urls.homepage = "https://github.com/pyveci/pueblo"
 urls.repository = "https://github.com/pyveci/pueblo"
 scripts.ngr = "pueblo.ngr.cli:main"
 scripts.pueblo = "pueblo.cli:cli"
+scripts.sfa = "pueblo.sfa.cli:main"
 
 [tool.setuptools]
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
