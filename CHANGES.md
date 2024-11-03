@@ -1,6 +1,8 @@
 # Changes for pueblo
 
 ## Unreleased
+
+## 2024-10-03 v0.0.10
 - nlp: Updated dependencies langchain, langchain-text-splitters, unstructured
 - CI: Verify compatibility with Python 3.13
 - Testing: Add `pueblo.testing.notebook.{list_notebooks,generate_notebook_tests,run_notebook}`
