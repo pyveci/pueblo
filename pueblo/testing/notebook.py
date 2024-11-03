@@ -59,7 +59,12 @@ def list_path(path: Path, suffix: str = ".ipynb"):
             yield item
 
 
-def generate_tests(metafunc, paths: t.Union[t.List[Path], None] = None, path: t.Union[Path, None] = None):
+def generate_tests(
+    metafunc,
+    paths: t.Union[t.List[Path], None] = None,
+    path: t.Union[Path, None] = None,
+    fixture_name: str = "notebook",
+):
     """
     Generate test cases for Jupyter Notebooks.
     To be used from `pytest_generate_tests`.
@@ -70,6 +75,52 @@ def generate_tests(metafunc, paths: t.Union[t.List[Path], None] = None, path: t.
         paths = list(paths)
     else:
         raise ValueError("Path is missing")
-    if "notebook" in metafunc.fixturenames:
+    if fixture_name in metafunc.fixturenames:
         names = [nb_path.name for nb_path in paths]
-        metafunc.parametrize("notebook", paths, ids=names)
+        metafunc.parametrize(fixture_name, paths, ids=names)
+
+
+def list_notebooks(path: Path) -> t.List[Path]:
+    """
+    Enumerate all Jupyter Notebook files found in given directory.
+    """
+    return list(path.rglob("*.ipynb"))
+
+
+def generate_notebook_tests(metafunc, notebook_paths: t.List[Path], fixture_name: str = "notebook"):
+    """
+    Generate test cases for Jupyter Notebooks.
+    To be used from `pytest_generate_tests`.
+    """
+    if fixture_name in metafunc.fixturenames:
+        names = [nb_path.name for nb_path in notebook_paths]
+        metafunc.parametrize(fixture_name, notebook_paths, ids=names)
+
+
+def run_notebook(notebook, enable_skipping=True, timeout=60, **kwargs):
+    """
+    Execute Jupyter Notebook, one test case per .ipynb file, with optional skipping.
+
+    Skip executing a notebook by using this code within a cell::
+
+        pytest.exit("Something failed but let's skip! [skip-notebook]")
+
+    For example, this is used by `pueblo.util.environ.getenvpass()`, to
+    skip executing the notebook when an authentication token is not supplied.
+    """
+
+    from nbclient.exceptions import CellExecutionError
+    from testbook import testbook
+
+    with testbook(notebook, timeout=timeout, **kwargs) as tb:
+        try:
+            tb.execute()
+
+        # Skip notebook if `pytest.exit()` is invoked,
+        # including the `[skip-notebook]` label.
+        except CellExecutionError as ex:
+            if enable_skipping:
+                msg = str(ex)
+                if "[skip-notebook]" in msg:
+                    raise pytest.skip(msg) from ex
+            raise
