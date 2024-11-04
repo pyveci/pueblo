@@ -120,7 +120,7 @@ optional-dependencies.test = [
 optional-dependencies.testing = [
   "coverage~=7.3",
   "pytest<8",
-  "pytest-cov<6",
+  "pytest-cov<7",
   "pytest-env<2",
   "pytest-mock<4",
 ]
