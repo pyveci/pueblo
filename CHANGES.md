@@ -1,6 +1,7 @@
 # Changes for pueblo
 
 ## Unreleased
+- ngr: For invoking Elixir, use `mix test --trace`
 
 ## 2024-10-03 v0.0.10
 - nlp: Updated dependencies langchain, langchain-text-splitters, unstructured

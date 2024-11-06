@@ -159,7 +159,7 @@ class ElixirRunner(RunnerBase):
         """
         Run test suite.
         """
-        run_command("mix test")
+        run_command("mix test --trace")
 
 
 class GolangRunner(RunnerBase):
