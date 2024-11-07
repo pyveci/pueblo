@@ -1,11 +1,15 @@
 import importlib.util
+import logging
 import sys
 import typing as t
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 from types import ModuleType
 from urllib.parse import urlparse
 
 from attrs import define
+
+logger = logging.getLogger(__name__)
 
 
 class InvalidTarget(Exception):
@@ -29,6 +33,7 @@ class ApplicationAddress:
         :param default_property: Name of the property to load if not specified in target (default: "api")
         :return:
         """
+        is_url = False
         if cls.is_valid_url(spec):
             # Decode launch target location address from URL.
             # URL: https://example.org/acme/app.py#foo
@@ -51,7 +56,6 @@ class ApplicationAddress:
                 if default_property is None:
                     raise ValueError("Property can not be discovered, and no default property was supplied")
                 prop = default_property
-            is_url = False
 
         return cls(target=target, property=prop, is_url=is_url)
 
@@ -102,9 +106,10 @@ class SingleFileApplication:
     def load(self):
         target = self.address.target
         prop = self.address.property
+        is_url = self.address.is_url
 
         # Sanity checks, as suggested by @coderabbitai. Thanks.
-        if not target or (":" in target and len(target.split(":")) != 2):
+        if not is_url and (not target or (":" in target and len(target.split(":")) != 2)):
             raise InvalidTarget(
                 f"Invalid target format: {target}. "
                 "Use either a Python module entrypoint specification, "
@@ -139,13 +144,29 @@ class SingleFileApplication:
 
     def load_any(self):
         if self.address.is_url:
-            mod = None
+            import fsspec
+
+            url = urlparse(self.address.target)
+            url_path = Path(url.path)
+            name = "_".join([url_path.parent.stem, url_path.stem])
+            suffix = url_path.suffix
+            app_file = NamedTemporaryFile(prefix=f"{name}_", suffix=suffix, delete=False)
+            target = app_file.name
+            logger.info(f"Loading remote single-file application, source: {url}")
+            logger.info(f"Writing remote single-file application, target: {target}")
+            fs = fsspec.open(f"simplecache::{self.address.target}")
+            with fs as f:
+                app_file.write(f.read())
+            app_file.flush()
+            path = Path(app_file.name)
         else:
             path = Path(self.address.target)
-            if path.is_file():
-                mod = self.load_file(path)
-            else:
-                mod = importlib.import_module(self.address.target)
+
+        if path.is_file():
+            mod = self.load_file(path)
+        else:
+            mod = importlib.import_module(self.address.target)
+
         self._module = mod
 
     @staticmethod
