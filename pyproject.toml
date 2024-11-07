@@ -116,6 +116,8 @@ optional-dependencies.release = [
 ]
 optional-dependencies.sfa = [
   "attrs",
+  "fsspec[github,http,libarchive,s3]<2024.11",
+  "tomli<3",
 ]
 optional-dependencies.test = [
   "pueblo[testing]",

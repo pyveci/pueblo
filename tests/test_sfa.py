@@ -35,8 +35,9 @@ def test_address_url():
 @pytest.mark.parametrize(
     "spec",
     [
-        "tests.testdata.entrypoint:main",
-        "tests/testdata/entrypoint.py:main",
+        "tests.sfa.basic:main",
+        "tests/sfa/basic.py:main",
+        "https://github.com/pyveci/pueblo/raw/refs/heads/sfa/tests/sfa/basic.py#main",
     ],
 )
 def test_application_api_success(capsys, spec):
@@ -53,6 +54,7 @@ def test_application_api_success(capsys, spec):
     [
         "pueblo.context:pueblo_cache_path",
         "pueblo/context.py:pueblo_cache_path",
+        "https://github.com/pyveci/pueblo/raw/refs/heads/main/pueblo/context.py#pueblo_cache_path",
     ],
 )
 def test_application_api_not_callable(capsys, spec):
@@ -65,8 +67,9 @@ def test_application_api_not_callable(capsys, spec):
 @pytest.mark.parametrize(
     "spec",
     [
-        "tests.testdata.entrypoint:main",
-        "tests/testdata/entrypoint.py:main",
+        "tests.sfa.basic:main",
+        "tests/sfa/basic.py:main",
+        "https://github.com/pyveci/pueblo/raw/refs/heads/sfa/tests/sfa/basic.py#main",
     ],
 )
 def test_application_cli(mocker, capfd, spec):
