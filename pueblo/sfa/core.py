@@ -1,3 +1,4 @@
+import contextlib
 import importlib.util
 import logging
 import sys
@@ -8,6 +9,8 @@ from types import ModuleType
 from urllib.parse import urlparse
 
 from attrs import define
+
+from pueblo.sfa.pep723 import collect_requirements
 
 logger = logging.getLogger(__name__)
 
@@ -67,9 +70,6 @@ class ApplicationAddress:
         except ValueError:
             return False
 
-    def install(self):
-        pass
-
 
 @define
 class SingleFileApplication:
@@ -92,6 +92,7 @@ class SingleFileApplication:
     """  # noqa: E501
 
     address: ApplicationAddress
+    _path: t.Optional[Path] = None
     _module: t.Optional[ModuleType] = None
     _entrypoint: t.Optional[t.Callable] = None
 
@@ -99,6 +100,12 @@ class SingleFileApplication:
     def from_spec(cls, spec: str, default_property=None):
         address = ApplicationAddress.from_spec(spec=spec, default_property=default_property)
         return cls(address=address)
+
+    @property
+    def path(self) -> Path:
+        if self._path is None:
+            raise ValueError("Path not defined")
+        return self._path
 
     def run(self, *args, **kwargs):
         return t.cast(t.Callable, self._entrypoint)(*args, **kwargs)
@@ -122,7 +129,10 @@ class SingleFileApplication:
 
         # Import launch target. Treat input location either as a filesystem path
         # (/path/to/acme/app.py), or as a module address specification (acme.app).
+        # Optionally, install inline dependencies per PEP 723.
         self.load_any()
+        with self.install():
+            self.import_module()
 
         # Invoke launch target.
         msg_prefix = f"Failed to import: {target}"
@@ -142,6 +152,27 @@ class SingleFileApplication:
         except Exception as ex:
             raise RuntimeError(f"{msg_prefix}: Unexpected error: {ex}") from ex
 
+    def install(self):
+
+        if self._path is None:
+            return contextlib.nullcontext()
+
+        requirements = collect_requirements(self._path)
+        if not requirements:
+            return contextlib.nullcontext()
+
+        import instld
+
+        return instld(*requirements)
+
+    def import_module(self):
+        if self.path.is_file():
+            mod = self.load_file(self.path)
+        else:
+            mod = importlib.import_module(self.address.target)
+
+        self._module = mod
+
     def load_any(self):
         if self.address.is_url:
             import fsspec
@@ -158,16 +189,14 @@ class SingleFileApplication:
             with fs as f:
                 app_file.write(f.read())
             app_file.flush()
-            path = Path(app_file.name)
+            self._path = Path(app_file.name)
         else:
-            path = Path(self.address.target)
-
-        if path.is_file():
-            mod = self.load_file(path)
-        else:
-            mod = importlib.import_module(self.address.target)
-
-        self._module = mod
+            self._path = Path(self.address.target)
+            if not self._path.is_file():
+                sys.path += [str(Path.cwd())]
+                module = importlib.util.find_spec(self.address.target)
+                if module is not None and module.origin is not None:
+                    self._path = Path(module.origin)
 
     @staticmethod
     def load_file(path: Path) -> ModuleType:
