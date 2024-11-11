@@ -1,24 +1,20 @@
 import logging
 import sys
 
-from pueblo.ngr.core import run
+from pueblo import setup_logging
+from pueblo.sfa.core import run
 from pueblo.util.program import MiniRunner
 
 logger = logging.getLogger()
 
 
-class NGRRunner(MiniRunner):
+class SFARunner(MiniRunner):
 
     def configure(self):
         subparsers = self.parser.add_subparsers(dest="command")
 
-        test = subparsers.add_parser("test", help="Invoke test suite")
-        test.add_argument("target")
-        test.add_argument("--accept-no-venv", action="store_true", help="Whether to accept not running in venv")
-        test.add_argument(
-            "--dotnet-version", type=str, help=".NET version, like `net6.0`, `net7.0`, or `5.0.x`, `6.0.x`"
-        )
-        test.add_argument("--npgsql-version", type=str, help="Version of Npgsql")
+        subcommand_run = subparsers.add_parser("run", help="Invoke application")
+        subcommand_run.add_argument("target")
 
     def run(self):
         if not self.args.target:
@@ -42,5 +38,6 @@ def main(args=None, prog_name=None):
     - Run sanity checks.
     - Invoke runner.
     """
-    runner = NGRRunner(name=prog_name, args_input=args)
+    setup_logging()
+    runner = SFARunner(name=prog_name, args_input=args)
     return runner.run()

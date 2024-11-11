@@ -66,7 +66,7 @@ dependencies = [
 ]
 
 optional-dependencies.all = [
-  "pueblo[cli,dataframe,fileio,nlp,notebook,proc,testing,web]",
+  "pueblo[cli,dataframe,fileio,nlp,notebook,proc,sfa,sfa-extended,testing,web]",
 ]
 optional-dependencies.cli = [
   "click<9",
@@ -114,6 +114,14 @@ optional-dependencies.release = [
   "build<2",
   "twine<6",
 ]
+optional-dependencies.sfa = [
+  "attrs",
+]
+optional-dependencies.sfa-extended = [
+  "fsspec[github,http,libarchive,s3]<2024.11",
+  "instld<0.1",
+  "tomli<3",
+]
 optional-dependencies.test = [
   "pueblo[testing]",
 ]
@@ -133,6 +141,7 @@ urls.homepage = "https://github.com/pyveci/pueblo"
 urls.repository = "https://github.com/pyveci/pueblo"
 scripts.ngr = "pueblo.ngr.cli:main"
 scripts.pueblo = "pueblo.cli:cli"
+scripts.sfa = "pueblo.sfa.cli:main"
 
 [tool.setuptools]
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html

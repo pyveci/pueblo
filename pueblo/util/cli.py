@@ -2,13 +2,17 @@ import logging
 import textwrap
 import typing as t
 
+import click
+
 from pueblo.util.logging import setup_logging
 
 logger = logging.getLogger(__name__)
 
 
 def boot_click(
-    ctx: "click.Context", verbose: bool = False, debug: bool = False  # type: ignore[name-defined]  # noqa: F821
+    ctx: "click.Context",
+    verbose: bool = False,
+    debug: bool = False,  # noqa: F821
 ):
     """
     Bootstrap the CLI application.
