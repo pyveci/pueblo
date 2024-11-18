@@ -95,7 +95,7 @@ optional-dependencies.fileio = [
   "yarl<1.19",
 ]
 optional-dependencies.nlp = [
-  "aiohttp<3.11",
+  "aiohttp<3.12",
   "langchain>=0.1,<0.4",
   "langchain-text-splitters<0.4",
   "unstructured<0.17",
