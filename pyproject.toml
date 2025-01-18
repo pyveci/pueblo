@@ -105,8 +105,6 @@ optional-dependencies.notebook = [
   "nbclient<0.11",
   "nbdime<5",
   "notebook<8",
-  "pytest-notebook>=0.10,<0.11",
-  "testbook<0.5",
 ]
 optional-dependencies.proc = [
   "psutil<7",
@@ -120,10 +118,15 @@ optional-dependencies.test = [
 ]
 optional-dependencies.testing = [
   "coverage~=7.3",
-  "pytest<8",
+  "pytest<9",
   "pytest-cov<7",
   "pytest-env<2",
   "pytest-mock<4",
+  "testbook<0.5",
+]
+optional-dependencies.testing-pytest7 = [
+  "pytest<8",
+  "pytest-notebook>=0.10,<0.11",
 ]
 optional-dependencies.web = [
   "requests-cache<2",
@@ -198,7 +201,7 @@ skip_gitignore = false
 [tool.pytest.ini_options]
 minversion = "2.0"
 addopts = """
-  -rfEX -p pytester --strict-markers --verbosity=3
+  -rfEXs -p pytester --strict-markers --verbosity=3
   --cov=pueblo --cov-report=term-missing --cov-report=xml
   --ignore=tests/ngr
   """
@@ -208,6 +211,7 @@ testpaths = [ "tests" ]
 xfail_strict = true
 markers = [
   "ngr",
+  "pytest_notebook",
 ]
 env = [
   "PYDEVD_DISABLE_FILE_VALIDATION=1",

@@ -2,6 +2,7 @@
 
 ## Unreleased
 - ngr: For invoking Elixir, use `mix test --trace`
+- Testing: Unlocked compatibility with pytest version 8
 
 ## 2024-10-03 v0.0.10
 - nlp: Updated dependencies langchain, langchain-text-splitters, unstructured
