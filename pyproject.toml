@@ -70,7 +70,7 @@ optional-dependencies.all = [
 ]
 optional-dependencies.cli = [
   "click<9",
-  "click-aliases<2,>=1.0.4",
+  "click-aliases>=1.0.4,<2",
   "colorlog<7",
   "python-dotenv<2",
 ]
@@ -104,7 +104,7 @@ optional-dependencies.notebook = [
   "nbclient<0.11",
   "nbdime<5",
   "notebook<8",
-  "pytest-notebook<0.11,>=0.10",
+  "pytest-notebook>=0.10,<0.11",
   "testbook<0.5",
 ]
 optional-dependencies.proc = [
