@@ -35,6 +35,7 @@ jobs:
     env:
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
+      UV_SYSTEM_PYTHON: true
 
     name: Python ${{ matrix.python-version }} on OS ${{ matrix.os }}
     steps:
@@ -52,16 +53,22 @@ jobs:
 
     - name: Set up uv
       uses: astral-sh/setup-uv@v5
+      with:
+        cache-dependency-glob: |
+          pyproject.toml
+        cache-suffix: ${{ matrix.python-version }}
+        enable-cache: true
+        version: "latest"
 
     - name: Set up project
       run: |
 
         # `setuptools 0.64.0` adds support for editable install hooks (PEP 660).
         # https://github.com/pypa/setuptools/blob/main/CHANGES.rst#v6400
-        uv pip install --system --upgrade 'setuptools>=64'
+        uv pip install --upgrade 'setuptools>=64'
 
         # Install package in editable mode.
-        uv pip install --system --upgrade --editable='.[all,develop,test]'
+        uv pip install --upgrade --editable='.[all,develop,test]'
 
     - name: Run linter and software tests
       run: |
