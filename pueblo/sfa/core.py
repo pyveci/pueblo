@@ -16,6 +16,14 @@ logger = logging.getLogger(__name__)
 
 
 class InvalidTarget(Exception):
+    """
+    Raised when the target specification format is invalid.
+
+    This exception is raised when the target string does not conform to the expected
+    format of either a module path (e.g., 'acme.app:foo') or a file path
+    (e.g., '/path/to/acme/app.py').
+    """
+
     pass
 
 
@@ -37,6 +45,7 @@ class ApplicationAddress:
         :return:
         """
         is_url = False
+        prop = None
         if cls.is_valid_url(spec):
             # Decode launch target location address from URL.
             # URL: https://example.org/acme/app.py#foo
@@ -56,9 +65,10 @@ class ApplicationAddress:
                 prop = target_fragments[1]
             else:
                 target = target_fragments[0]
-                if default_property is None:
-                    raise ValueError("Property can not be discovered, and no default property was supplied")
-                prop = default_property
+
+        prop = prop or default_property
+        if not prop:
+            raise ValueError("Property can not be discovered, and no default property was supplied")
 
         return cls(target=target, property=prop, is_url=is_url)
 
@@ -106,6 +116,10 @@ class SingleFileApplication:
         if self._path is None:
             raise ValueError("Path not defined")
         return self._path
+
+    @property
+    def entrypoint(self) -> t.Union[t.Callable[..., t.Any], None]:
+        return self._entrypoint
 
     def run(self, *args, **kwargs):
         return t.cast(t.Callable, self._entrypoint)(*args, **kwargs)
