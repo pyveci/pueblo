@@ -60,13 +60,14 @@ dynamic = [
 ]
 
 dependencies = [
+  "attrs",
   "contextlib-chdir; python_version<'3.11'",
   "importlib-metadata; python_version<'3.8'",
   "platformdirs<5",
 ]
 
 optional-dependencies.all = [
-  "pueblo[cli,dataframe,fileio,nlp,notebook,proc,sfa,sfa-extended,testing,web]",
+  "pueblo[cli,dataframe,fileio,nlp,notebook,proc,sfa-full,testing,web]",
 ]
 optional-dependencies.cli = [
   "click<9",
@@ -115,11 +116,13 @@ optional-dependencies.release = [
   "twine<7",
 ]
 optional-dependencies.sfa = [
-  "attrs",
+  "pueblo[cli]",
+  "tomli<3",
 ]
-optional-dependencies.sfa-extended = [
+optional-dependencies.sfa-full = [
   "fsspec[github,http,libarchive,s3]<2024.11",
   "instld<0.1",
+  "pueblo[sfa]",
   "tomli<3",
 ]
 optional-dependencies.test = [
@@ -221,6 +224,7 @@ xfail_strict = true
 markers = [
   "ngr",
   "pytest_notebook",
+  "sfa",
 ]
 env = [
   "PYDEVD_DISABLE_FILE_VALIDATION=1",
