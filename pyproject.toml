@@ -64,6 +64,7 @@ dependencies = [
   "contextlib-chdir; python_version<'3.11'",
   "importlib-metadata; python_version<'3.8'",
   "platformdirs<5",
+  "tomli<3",
 ]
 
 optional-dependencies.all = [
@@ -213,7 +214,7 @@ skip_gitignore = false
 [tool.pytest.ini_options]
 minversion = "2.0"
 addopts = """
-  -rfEXs -p pytester --strict-markers --verbosity=3
+  -rsfEX -p pytester --strict-markers --verbosity=3
   --cov=pueblo --cov-report=term-missing --cov-report=xml
   --ignore=tests/ngr
   """
@@ -291,7 +292,7 @@ lint = [
   { cmd = "validate-pyproject pyproject.toml" },
   { cmd = "mypy" },
 ]
-test = "pytest -m 'not ngr'"
+test = "pytest -m 'not (ngr or sfa)'"
 test-full = "pytest"
 build = { cmd = "python -m build" }
 check = [ "lint", "test" ]

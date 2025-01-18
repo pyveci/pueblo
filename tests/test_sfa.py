@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-pytest.importorskip("attrs")
+pytestmark = pytest.mark.sfa
 
 
 from pueblo.sfa.core import ApplicationAddress, SingleFileApplication  # noqa: E402
@@ -41,6 +41,8 @@ def test_address_url():
     ],
 )
 def test_application_api_success(capsys, spec):
+    if spec.startswith("https:"):
+        pytest.importorskip("fsspec")
     app = SingleFileApplication.from_spec(spec)
     app.load()
     outcome = app.run()
@@ -58,6 +60,8 @@ def test_application_api_success(capsys, spec):
     ],
 )
 def test_application_api_not_callable(capsys, spec):
+    if spec.startswith("https:"):
+        pytest.importorskip("fsspec")
     app = SingleFileApplication.from_spec(spec)
     with pytest.raises(TypeError) as ex:
         app.load()
@@ -73,6 +77,8 @@ def test_application_api_not_callable(capsys, spec):
     ],
 )
 def test_application_cli(mocker, capfd, spec):
+    if spec.startswith("https:"):
+        pytest.importorskip("fsspec")
     mocker.patch.dict(os.environ, {"PYTHONPATH": str(Path.cwd())})
     subprocess.check_call(["sfa", "run", spec])
     assert "Räuber Hotzenplotz" in capfd.readouterr().out
