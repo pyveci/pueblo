@@ -2,6 +2,7 @@
 
 ## Unreleased
 - ngr: For invoking Elixir, use `mix test --trace`
+- ngr: Added as dedicated install extra, `pip install pueblo[ngr]`
 - Testing: Unlocked compatibility with pytest version 8
 - SFA: Added a subsystem for loading single-file applications
 

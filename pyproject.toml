@@ -68,7 +68,7 @@ dependencies = [
 ]
 
 optional-dependencies.all = [
-  "pueblo[cli,dataframe,fileio,nlp,notebook,proc,sfa-full,testing,web]",
+  "pueblo[cli,dataframe,fileio,ngr,nlp,notebook,proc,sfa-full,testing,web]",
 ]
 optional-dependencies.cli = [
   "click<9",
@@ -96,6 +96,10 @@ optional-dependencies.fileio = [
   "python-magic<0.5",
   "s3fs>=2021",
   "yarl<1.19",
+]
+optional-dependencies.ngr = [
+  "pip",
+  "pueblo[cli]",
 ]
 optional-dependencies.nlp = [
   "aiohttp<3.12",
