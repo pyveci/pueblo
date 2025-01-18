@@ -5,7 +5,7 @@ description = "Test project for pueblo.ngr"
 authors = []
 
 [tool.poetry.dependencies]
-python = "^3.9,!=3.9.7,<3.13"
+python = "^3.8,!=3.9.7,<3.14"
 
 [tool.poetry.group.test.dependencies]
 pytest = ">=7.2,<8"
