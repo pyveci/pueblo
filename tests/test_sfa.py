@@ -37,7 +37,7 @@ def test_address_url():
     [
         "tests.sfa.basic:main",
         "tests/sfa/basic.py:main",
-        "https://github.com/pyveci/pueblo/raw/refs/heads/sfa/tests/sfa/basic.py#main",
+        "https://github.com/pyveci/pueblo/raw/refs/heads/main/tests/sfa/basic.py#main",
     ],
 )
 def test_application_api_success(capsys, spec):
@@ -73,7 +73,7 @@ def test_application_api_not_callable(capsys, spec):
     [
         "tests.sfa.basic:main",
         "tests/sfa/basic.py:main",
-        "https://github.com/pyveci/pueblo/raw/refs/heads/sfa/tests/sfa/basic.py#main",
+        "https://github.com/pyveci/pueblo/raw/refs/heads/main/tests/sfa/basic.py#main",
     ],
 )
 def test_application_cli(mocker, capfd, spec):
