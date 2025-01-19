@@ -25,7 +25,7 @@ not be used together.
 # Invoke Python entrypoint with given specification.
 PYTHONPATH=$(pwd) sfa run tests.testdata.entrypoint:main
 sfa run tests/testdata/entrypoint.py:main
-sfa run https://github.com/pyveci/pueblo/raw/refs/heads/sfa/tests/testdata/entrypoint.py#main
+sfa run https://github.com/pyveci/pueblo/raw/refs/heads/main/tests/sfa/basic.py#main
 sfa run github://pyveci:pueblo@/tests/testdata/entrypoint.py#main
 ```
 
