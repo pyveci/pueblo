@@ -1,6 +1,8 @@
 # Changes for pueblo
 
 ## Unreleased
+
+## 2025-01-19 v0.0.11
 - ngr: For invoking Elixir, use `mix test --trace`
 - ngr: Added as dedicated install extra, `pip install pueblo[ngr]`
 - Testing: Unlocked compatibility with pytest version 8
