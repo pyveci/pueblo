@@ -83,7 +83,7 @@ optional-dependencies.dataframe = [
   "pyarrow",
 ]
 optional-dependencies.develop = [
-  "black[jupyter]<25",
+  "black[jupyter]<26",
   "mypy<2",
   "poethepoet<1",
   "pyproject-fmt>=1.3,<2.6",
