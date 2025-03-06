@@ -208,11 +208,6 @@ lint.per-file-ignores."staging/html.py" = [ "A005" ] # Module shadows a Python s
 
 lint.per-file-ignores."tests/*" = [ "S101" ] # Use of `assert` detected
 
-[tool.isort]
-profile = "black"
-skip_glob = "**/site-packages/**"
-skip_gitignore = false
-
 [tool.pytest.ini_options]
 minversion = "2.0"
 addopts = """
