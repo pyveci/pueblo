@@ -105,7 +105,7 @@ optional-dependencies.nlp = [
   "aiohttp<3.12",
   "langchain>=0.1,<0.4",
   "langchain-text-splitters<0.4",
-  "unstructured<0.17",
+  "unstructured<0.18",
 ]
 optional-dependencies.notebook = [
   "nbclient<0.11",
