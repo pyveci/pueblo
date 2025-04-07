@@ -95,7 +95,7 @@ optional-dependencies.fileio = [
   "pathlibfs<0.6",
   "python-magic<0.5",
   "s3fs>=2021",
-  "yarl<1.19",
+  "yarl<1.20",
 ]
 optional-dependencies.ngr = [
   "pip",
