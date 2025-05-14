@@ -1,0 +1,20 @@
+[project]
+name = "rotation"
+version = "0.1.0"
+description = "Calculate on-call compensation based on OpsGenie API data"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas",
+    "pytz",
+    "python-dateutil",
+    "holidays",
+    "matplotlib",
+    "pydantic",
+    "requests",
+    "click",
+    "python-dotenv",
+    "email-validator",
+    "icalendar",
+    "xlsxwriter",
+]
