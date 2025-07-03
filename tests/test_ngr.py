@@ -40,6 +40,7 @@ def list_target_samples(path: Path):
 
 @pytest.mark.ngr
 @pytest.mark.parametrize("sample", list_target_samples(HERE), ids=map(str, list_target_samples(HERE)))
+@pytest.mark.skipif(sys.version_info < (3, 9), reason="requires Python 3.9 or higher")
 def test_ngr_sample(sample: Path):
     """
     Invoke minimal `ngr test` target.
