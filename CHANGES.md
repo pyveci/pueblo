@@ -3,6 +3,8 @@
 ## Unreleased
 - ngr: Stopped overwriting existing Gradle wrapper. The `--gradle-wrapper`
   option can be used to optionally regenerate the Gradle wrapper now.
+- ngr: Deprecated Python's `--accept-no-venv` option: The test runner
+  should not apply any governance here.
 
 ## 2025-01-19 v0.0.11
 - ngr: For invoking Elixir, use `mix test --trace`

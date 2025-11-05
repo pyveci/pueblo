@@ -2,13 +2,12 @@ import logging
 import shlex
 import shutil
 import subprocess
-import sys
 import typing as t
 from abc import abstractmethod
 from pathlib import Path
 
 from pueblo.ngr.model import ItemType
-from pueblo.ngr.util import is_venv, mp, run_command
+from pueblo.ngr.util import mp, run_command
 
 try:
     from contextlib import chdir as chdir_ctx  # type: ignore[attr-defined,unused-ignore]
@@ -475,16 +474,6 @@ class PythonRunner(RunnerBase):
         self.ngr_type: t.Union[str, None] = None
         if self.has_ngr_type_file:
             self.ngr_type = (self.path / ".ngr-type").read_text().strip()
-
-    def run(self) -> None:
-        # Sanity check. When invoking a Python thing within a sandbox,
-        # don't install system-wide.
-        if not is_venv():
-            if not self.options.get("accept_no_venv", False):
-                logger.error("Unable invoke target without virtualenv. Use `--accept-no-venv` to override.")
-                sys.exit(1)
-
-        return super().run()
 
     def install(self) -> None:
         """
