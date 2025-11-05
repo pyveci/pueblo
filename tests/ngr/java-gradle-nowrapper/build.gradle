@@ -39,5 +39,4 @@ application {
 check {
 }
 
-processResources.destinationDir = compileJava.destinationDir
 compileJava.dependsOn processResources
