@@ -18,6 +18,7 @@ class NGRRunner(MiniRunner):
         test.add_argument(
             "--dotnet-version", type=str, help=".NET version, like `net6.0`, `net7.0`, or `5.0.x`, `6.0.x`"
         )
+        test.add_argument("--gradle-wrapper", action="store_true", help="Regenerate Gradle wrapper")
         test.add_argument("--npgsql-version", type=str, help="Version of Npgsql")
 
     def run(self):
