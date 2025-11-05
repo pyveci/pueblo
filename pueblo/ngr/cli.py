@@ -1,5 +1,6 @@
 import logging
 import sys
+import warnings
 
 from pueblo.ngr.core import run
 from pueblo.util.program import MiniRunner
@@ -26,6 +27,9 @@ class NGRRunner(MiniRunner):
             logger.error("Unable to invoke target: Not given or empty")
             self.parser.print_help()
             sys.exit(1)
+
+        if self.args.accept_no_venv:
+            warnings.warn("The `--accept-no-venv` option is deprecated and will be ignored.", stacklevel=2)
 
         try:
             run(self.args.target, self.args.__dict__)
