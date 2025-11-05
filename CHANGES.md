@@ -1,6 +1,8 @@
 # Changes for pueblo
 
 ## Unreleased
+
+## 2025-11-05 v0.0.12
 - ngr: Stopped overwriting existing Gradle wrapper. The `--gradle-wrapper`
   option can be used to optionally regenerate the Gradle wrapper now.
 - ngr: Deprecated Python's `--accept-no-venv` option: The test runner
