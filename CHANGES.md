@@ -1,6 +1,8 @@
 # Changes for pueblo
 
 ## Unreleased
+- ngr: Stopped overwriting existing Gradle wrapper. The `--gradle-wrapper`
+  option can be used to optionally regenerate the Gradle wrapper now.
 
 ## 2025-01-19 v0.0.11
 - ngr: For invoking Elixir, use `mix test --trace`

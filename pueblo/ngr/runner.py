@@ -255,13 +255,26 @@ class JavaRunner(RunnerBase):
         if self.has_pom_xml:
             run_command("mvn install")
         elif self.has_gradle_files:
-            # When `gradle` is installed, wipe the
-            # existing wrapper, and generate a new one.
-            if self.is_gradle_installed:
-                if self.has_gradle_wrapper:
+
+            def generate_wrapper():
+                if self.is_gradle_installed:
                     (self.path / "gradlew").unlink(missing_ok=True)
-                run_command("gradle wrapper")
+                    (self.path / "gradlew.bat").unlink(missing_ok=True)
+                    run_command("gradle wrapper")
+                else:
+                    logger.error("Gradle is not installed, can't regenerate wrapper.")
+                    sys.exit(1)
+
+            # Optionally wipe existing wrapper and regenerate new one.
+            if self.options.get("gradle_wrapper", False):
+                generate_wrapper()
+
+            # Check if wrapper exists. If not, attempt to generate it.
             self.has_gradle_wrapper = (self.path / "gradlew").exists()
+            if not self.has_gradle_wrapper:
+                generate_wrapper()
+
+            # Error out if there's still no wrapper.
             if not self.has_gradle_wrapper:
                 logger.error("No Gradle wrapper found, and no one could be generated. Consider installing `gradle`.")
         else:
