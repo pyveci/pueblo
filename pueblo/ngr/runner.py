@@ -262,8 +262,9 @@ class JavaRunner(RunnerBase):
                     (self.path / "gradlew.bat").unlink(missing_ok=True)
                     run_command("gradle wrapper")
                 else:
-                    logger.error("Gradle is not installed, can't regenerate wrapper.")
-                    sys.exit(1)
+                    msg = "Gradle is not installed, can't regenerate wrapper."
+                    logger.error(msg)
+                    raise FileNotFoundError(msg)
 
             # Optionally wipe existing wrapper and regenerate new one.
             if self.options.get("gradle_wrapper", False):
