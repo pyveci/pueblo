@@ -92,7 +92,7 @@ optional-dependencies.develop = [
   "validate-pyproject<1",
 ]
 optional-dependencies.fileio = [
-  "fsspec[abfs,dask,gcs,git,github,http,s3,smb]<2025.10",
+  "fsspec[abfs,dask,gcs,git,github,http,s3,smb]<2025.11",
   "pathlibfs<0.6",
   "python-magic<0.5",
   "s3fs>=2021",
