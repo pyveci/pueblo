@@ -140,7 +140,7 @@ optional-dependencies.testing = [
   "pytest-mock<4",
 ]
 optional-dependencies.testing-pytest7 = [
-  "pytest<8",
+  "pytest<9",
   "pytest-notebook>=0.10,<0.11",
 ]
 optional-dependencies.web = [
