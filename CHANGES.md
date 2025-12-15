@@ -1,6 +1,8 @@
 # Changes for pueblo
 
 ## Unreleased
+
+## 2025-12-15 v0.0.13
 - nlp: Switched from `langchain` to `langchain-core`
 - Testing: Migrated from pytest's `LocalPath` to `pathlib.Path`
 
