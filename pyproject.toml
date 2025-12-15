@@ -155,9 +155,9 @@ scripts.ngr = "pueblo.ngr.cli:main"
 scripts.pueblo = "pueblo.cli:cli"
 scripts.sfa = "pueblo.sfa.cli:main"
 
-[tool.setuptools]
+[tool.setuptools.packages.find]
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
-packages = [ "pueblo" ]
+include = ["pueblo*"]
 
 [tool.black]
 line-length = 120
