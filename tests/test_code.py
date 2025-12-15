@@ -41,13 +41,12 @@ def test_pytest_notebook(request):
     """
     Verify executing code cells in an arbitrary Jupyter Notebook.
     """
-    from _pytest._py.path import LocalPath
 
     from pueblo.testing.snippet import pytest_notebook
 
     outcomes = pytest_notebook(request=request, filepath=TESTDATA_FOLDER / "dummy.ipynb")
-    assert isinstance(outcomes[0][0], LocalPath)
-    assert outcomes[0][0].basename == "dummy.ipynb"
+    assert isinstance(outcomes[0][0], Path)
+    assert outcomes[0][0].name == "dummy.ipynb"
     assert outcomes[0][1] == 0
     assert outcomes[0][2] == "notebook: nbregression(dummy)"
 

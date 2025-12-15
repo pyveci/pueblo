@@ -2,6 +2,7 @@
 
 ## Unreleased
 - nlp: Switched from `langchain` to `langchain-core`
+- Testing: Migrated from pytest's `LocalPath` to `pathlib.Path`
 
 ## 2025-11-05 v0.0.12
 - ngr: Stopped overwriting existing Gradle wrapper. The `--gradle-wrapper`
