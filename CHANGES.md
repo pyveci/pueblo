@@ -1,6 +1,7 @@
 # Changes for pueblo
 
 ## Unreleased
+- nlp: Switched from `langchain` to `langchain-core`
 
 ## 2025-11-05 v0.0.12
 - ngr: Stopped overwriting existing Gradle wrapper. The `--gradle-wrapper`

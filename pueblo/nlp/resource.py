@@ -6,7 +6,7 @@ import requests_cache
 from pueblo.context import pueblo_cache_path
 
 if t.TYPE_CHECKING:
-    from langchain.schema import Document
+    from langchain_core.documents import Document
 
 http_cache_file = pueblo_cache_path / ".httpcache.sqlite"
 http = requests_cache.CachedSession(str(http_cache_file))
@@ -28,7 +28,7 @@ class CachedWebResource:
 
     @staticmethod
     def fetch_multi(urls) -> t.List["Document"]:
-        from langchain.document_loaders import UnstructuredURLLoader
+        from langchain_community.document_loaders import UnstructuredURLLoader
 
         loader = UnstructuredURLLoader(urls=urls)
         return loader.load()
@@ -38,14 +38,14 @@ class CachedWebResource:
         Converge URL resource into LangChain Document.
         """
         logger.info(f"Acquiring web resource: {self.url}")
-        from langchain.schema import Document
+        from langchain_core.documents import Document
 
         response = http.get(self.url)
         metadata = {"source": self.url}
         return Document(page_content=response.text, metadata=metadata)
 
     def decode_html(self):
-        from langchain.schema import Document
+        from langchain_core.documents import Document
         from unstructured.partition.html import partition_html
 
         doc = self.document_from_url()

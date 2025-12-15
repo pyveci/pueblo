@@ -9,7 +9,7 @@ def test_cached_web_resource():
     docs = CachedWebResource(url).langchain_documents(chunk_size=1000, chunk_overlap=0)
     assert len(docs) == 42
 
-    from langchain.schema import Document
+    from langchain_core.documents import Document
 
     assert isinstance(docs[0], Document)
 
