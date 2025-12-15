@@ -42,10 +42,10 @@ def pytest_notebook(request: pytest.FixtureRequest, filepath: t.Union[str, Path]
 
     Not using `NBRegressionFixture`, because it would manually need to be configured.
     """
-    from _pytest._py.path import LocalPath
     from pytest_notebook.plugin import pytest_collect_file
 
-    tests = pytest_collect_file(LocalPath(filepath), request.node)
+    path = Path(filepath)
+    tests = pytest_collect_file(path, request.node)
     if not tests:
         raise ValueError(f"No tests collected from notebook: {filepath}")
     infos = []
