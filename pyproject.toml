@@ -131,7 +131,7 @@ optional-dependencies.test = [
   "pueblo[testing]",
 ]
 optional-dependencies.testing = [
-  "coverage<7.4",
+  "coverage<7.14",
   "pytest<10",
   "pytest-cov<8",
   "pytest-env<2",
