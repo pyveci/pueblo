@@ -21,8 +21,6 @@ keywords = [
   "mixed",
   "pueblo",
 ]
-license = "LGPL-3.0"
-license-files = ["LICENSE"]
 authors = [
   { name = "Andreas Motl", email = "andreas.motl@panodata.org" },
 ]
