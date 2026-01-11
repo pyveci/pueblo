@@ -54,3 +54,11 @@ Read the source.
 ## Prior Art
 
 - https://pypi.org/project/boltons/
+
+
+### Supported by
+
+[![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
+
+Special thanks to the people at JetBrains s.r.o. for supporting us with
+excellent development tooling.
