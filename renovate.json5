@@ -7,5 +7,11 @@
   ],
   "labels": [
     "dependencies"
+  ],
+
+  // `ngr` test cases include quite a bunch of package descriptions.
+  // https://docs.renovatebot.com/configuration-options/#includepaths
+  "includePaths": [
+    "/tests/ngr/**",
   ]
 }
