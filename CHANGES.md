@@ -3,6 +3,7 @@
 ## Unreleased
 - Testing: Fixed `ValueError: Invalid frequency: S. Failed to parse with
   error message: Did you mean s?`
+- ngr: Updated to poethepoet 0.37 at `ngr-python-test-poethepoet`
 
 ## 2025-12-15 v0.0.13
 - nlp: Switched from `langchain` to `langchain-core`
