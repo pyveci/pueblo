@@ -1,6 +1,8 @@
 # Changes for pueblo
 
 ## Unreleased
+- Testing: Fixed `ValueError: Invalid frequency: S. Failed to parse with
+  error message: Did you mean s?`
 
 ## 2025-12-15 v0.0.13
 - nlp: Switched from `langchain` to `langchain-core`

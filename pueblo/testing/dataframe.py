@@ -54,7 +54,7 @@ class DataFrameFactory:
         return makeMixedDataFrame()
 
     def make_dateindex(self) -> pd.DataFrame:
-        return makeTimeDataFrame(nper=self.rows, freq="S")
+        return makeTimeDataFrame(nper=self.rows, freq="s")
 
     @staticmethod
     def make_wide(rows: int = default_rows_count, columns: int = 99) -> pd.DataFrame:
