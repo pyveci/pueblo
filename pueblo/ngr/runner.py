@@ -580,7 +580,12 @@ class PythonRunner(RunnerBase):
             from poethepoet.config import PoeConfig
 
             config = PoeConfig()
-            config.load()
+            # poethepoet 0.38 is now primarily based on asyncio,
+            # but added the `load_sync` method to compensate.
+            if hasattr(config, "load_sync"):
+                config.load_sync()
+            else:
+                config.load()
             return [task for task in config.tasks.keys() if task and task[0] != "_"]
         except Exception as ex:  # pylint: disable=broad-except
             # this happens if there's no pyproject.toml present
