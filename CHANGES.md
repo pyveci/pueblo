@@ -1,6 +1,7 @@
 # Changes for pueblo
 
 ## Unreleased
+- Downgraded to `unstructured` v0.18.27 due to installation problems with `llvmlite`
 
 ## 2026-01-25 v0.0.14
 - Testing: Fixed `ValueError: Invalid frequency: S. Failed to parse with
