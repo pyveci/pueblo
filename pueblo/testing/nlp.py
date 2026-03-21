@@ -2,12 +2,16 @@ import pytest
 
 
 @pytest.fixture(scope="session", autouse=True)
-def nltk_init():
+def spacy_init():
     """
-    Initialize nltk upfront, so that it does not run stray output into Jupyter Notebooks.
+    Initialize spaCy upfront, so that it does not run stray output into Jupyter Notebooks.
     """
-    download_items = ["averaged_perceptron_tagger", "punkt", "punkt_tab"]
-    import nltk
+    import spacy
 
-    for item in download_items:
-        nltk.download(item)
+    try:
+        _nlp = spacy.load("en_core_web_sm")
+    except OSError:
+        raise OSError(
+            "The spacy model 'en_core_web_sm' is required but not installed. "
+            "Install it with: python -m spacy download en_core_web_sm"
+        ) from None
