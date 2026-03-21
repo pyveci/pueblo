@@ -3,7 +3,6 @@ name: Tests for pueblo.ngr
 
 on:
   pull_request:
-    branches: ~
     paths:
     - '.github/workflows/ngr.yml'
     - 'pueblo/ngr/**'
@@ -37,16 +36,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest"]
-        python-version: [
-          "3.8",
-          "3.14",
-          "3.14t",
-        ]
-
-    env:
-      OS: ${{ matrix.os }}
-      PYTHON: ${{ matrix.python-version }}
+        os:
+          - "ubuntu-latest"
+        python-version:
+          - "3.8"
+          - "3.14"
+          - "3.14t"
 
     name: Python ${{ matrix.python-version }} on OS ${{ matrix.os }}
     steps:
@@ -54,7 +49,7 @@ jobs:
     - name: Acquire sources
       uses: actions/checkout@v6
 
-    - name: Set up uv
+    - name: Install uv
       uses: astral-sh/setup-uv@v7
       with:
         activate-environment: 'true'
@@ -63,12 +58,12 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     # Needed for `pueblo.ngr`.
-    - name: Set up Elixir
+    - name: Install Elixir
       uses: erlef/setup-beam@v1
       with:
         otp-version: '26.1'
         elixir-version: '1.15'
-    - name: Set up Elixir/Mix dependency cache
+    - name: Install Elixir/Mix dependency cache
       uses: actions/cache@v5
       id: elixir-mix-cache
       with:
@@ -76,27 +71,21 @@ jobs:
         key: ${{ runner.os }}-${{ matrix.otp-version }}-${{ matrix.elixir-version }}-mix-${{ hashFiles('tests/ngr/elixir/mix.lock') }}
 
     # Needed for `pueblo.ngr`.
-    - name: Set up Java
+    - name: Install Java
       uses: actions/setup-java@v5
       with:
         distribution: "temurin"
         java-version: "17"
 
     # Needed for `pueblo.ngr`.
-    - name: Set up Ruby
+    - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: "4.0.2"
         bundler-cache: true
 
-    - name: Set up project
+    - name: Install project
       run: |
-
-        # `setuptools 0.64.0` adds support for editable install hooks (PEP 660).
-        # https://github.com/pypa/setuptools/blob/main/CHANGES.rst#v6400
-        uv pip install --upgrade 'setuptools>=64'
-
-        # Install package in editable mode.
         uv pip install --upgrade --editable='.[cli,develop,test]'
 
     - name: Run linter and software tests
@@ -108,8 +97,4 @@ jobs:
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
-        files: ./coverage.xml
-        flags: ngr
-        env_vars: OS,PYTHON
-        name: codecov-umbrella
         fail_ci_if_error: true
