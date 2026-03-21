@@ -1,5 +1,15 @@
 # TODO: Publish as real package.
+import sys
+
+import pytest
+
 from pueblo.testing.nlp import spacy_init  # noqa: F401
+
+pytestmark = pytest.mark.nlp
+
+
+if sys.version_info >= (3, 14):
+    pytest.skip(reason="spaCy not compatible with Python 3.14 yet", allow_module_level=True)
 
 
 def test_cached_web_resource():

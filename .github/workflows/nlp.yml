@@ -1,0 +1,92 @@
+---
+name: Tests for pueblo.nlp
+
+on:
+  pull_request:
+    branches: ~
+    paths:
+    - '.github/workflows/nlp.yml'
+    - 'pueblo/nlp/**'
+    - 'tests/nlp/**'
+    - 'tests/*nlp*'
+    - 'pyproject.toml'
+  push:
+    branches: [ main ]
+    paths:
+    - '.github/workflows/nlp.yml'
+    - 'pueblo/nlp/**'
+    - 'tests/nlp/**'
+    - 'tests/*nlp*'
+    - 'pyproject.toml'
+
+  # Allow job to be triggered manually.
+  workflow_dispatch:
+
+  # Run job each night.
+  schedule:
+    - cron: '0 3 * * *'
+
+# Cancel in-progress jobs when pushing to the same branch.
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+
+  tests:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest"]
+        python-version: [
+          "3.8",
+          "3.13",
+        ]
+
+    env:
+      OS: ${{ matrix.os }}
+      PYTHON: ${{ matrix.python-version }}
+
+    name: Python ${{ matrix.python-version }} on OS ${{ matrix.os }}
+    steps:
+
+    - name: Acquire sources
+      uses: actions/checkout@v6
+
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v7
+      with:
+        activate-environment: 'true'
+        cache-suffix: ${{ matrix.python-version }}
+        enable-cache: true
+        python-version: ${{ matrix.python-version }}
+
+    - name: Set up project
+      run: |
+
+        # Needed for installing spaCy models.
+        uv pip install pip
+
+        # Install package in editable mode.
+        uv pip install --upgrade --editable='.[nlp,develop,test]'
+
+    - name: Install spaCy models
+      run: |
+        python -m spacy download en_core_web_sm
+
+    - name: Run linter and software tests
+      run: |
+        pytest -m nlp
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v5
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      with:
+        files: ./coverage.xml
+        flags: nlp
+        env_vars: OS,PYTHON
+        name: codecov-umbrella
+        fail_ci_if_error: true

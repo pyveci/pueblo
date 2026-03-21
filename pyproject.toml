@@ -220,6 +220,7 @@ testpaths = [ "tests" ]
 xfail_strict = true
 markers = [
   "ngr",
+  "nlp",
   "pytest_notebook",
   "sfa",
 ]
@@ -288,7 +289,7 @@ lint = [
   { cmd = "validate-pyproject pyproject.toml" },
   { cmd = "mypy" },
 ]
-test = "pytest -m 'not (ngr or sfa)'"
+test = "pytest -m 'not (ngr or nlp or sfa)'"
 test-full = "pytest"
 build = { cmd = "python -m build" }
 check = [ "lint", "test" ]
