@@ -3,7 +3,6 @@ name: Tests for pueblo.nlp
 
 on:
   pull_request:
-    branches: ~
     paths:
     - '.github/workflows/nlp.yml'
     - 'pueblo/nlp/**'
@@ -39,15 +38,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest"]
-        python-version: [
-          "3.8",
-          "3.13",
-        ]
-
-    env:
-      OS: ${{ matrix.os }}
-      PYTHON: ${{ matrix.python-version }}
+        os:
+          - "ubuntu-latest"
+        python-version:
+          - "3.8"
+          - "3.13"
 
     name: Python ${{ matrix.python-version }} on OS ${{ matrix.os }}
     steps:
@@ -55,7 +50,7 @@ jobs:
     - name: Acquire sources
       uses: actions/checkout@v6
 
-    - name: Set up uv
+    - name: Install uv
       uses: astral-sh/setup-uv@v7
       with:
         activate-environment: 'true'
@@ -63,17 +58,13 @@ jobs:
         enable-cache: true
         python-version: ${{ matrix.python-version }}
 
-    - name: Set up project
+    - name: Install project
       run: |
-
-        # Needed for installing spaCy models.
-        uv pip install pip
-
-        # Install package in editable mode.
         uv pip install --upgrade --editable='.[nlp,develop,test]'
 
     - name: Install spaCy models
       run: |
+        uv pip install pip
         python -m spacy download en_core_web_sm
 
     - name: Run linter and software tests
@@ -85,8 +76,4 @@ jobs:
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
-        files: ./coverage.xml
-        flags: nlp
-        env_vars: OS,PYTHON
-        name: codecov-umbrella
         fail_ci_if_error: true

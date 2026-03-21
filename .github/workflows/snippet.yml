@@ -3,7 +3,7 @@
 name: Tests for pueblo.testing.snippet
 
 on:
-  pull_request: ~
+  pull_request:
   push:
     branches: [ main ]
 
@@ -27,15 +27,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest"]
-        python-version: [
-          "3.8",
-          "3.14",
-        ]
-
-    env:
-      OS: ${{ matrix.os }}
-      PYTHON: ${{ matrix.python-version }}
+        os:
+          - "ubuntu-latest"
+        python-version:
+          - "3.8"
+          - "3.14"
 
     name: Python ${{ matrix.python-version }} on OS ${{ matrix.os }}
     steps:
@@ -43,7 +39,7 @@ jobs:
     - name: Acquire sources
       uses: actions/checkout@v6
 
-    - name: Set up uv
+    - name: Install uv
       uses: astral-sh/setup-uv@v7
       with:
         activate-environment: 'true'
@@ -51,14 +47,8 @@ jobs:
         enable-cache: true
         python-version: ${{ matrix.python-version }}
 
-    - name: Set up project
+    - name: Install project
       run: |
-
-        # `setuptools 0.64.0` adds support for editable install hooks (PEP 660).
-        # https://github.com/pypa/setuptools/blob/main/CHANGES.rst#v6400
-        uv pip install --upgrade 'setuptools>=64'
-
-        # Install package in editable mode.
         uv pip install --upgrade --editable='.[all,develop,test,testing-pytest7]'
 
     - name: Run linter and software tests
@@ -70,8 +60,4 @@ jobs:
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
-        files: ./coverage.xml
-        flags: snippet
-        env_vars: OS,PYTHON
-        name: codecov-umbrella
         fail_ci_if_error: true
