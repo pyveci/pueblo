@@ -26,6 +26,6 @@ def getenvpass(env_var: str, prompt: t.Union[str, None] = None, skip_pytest_note
         if "PYTEST_CURRENT_TEST" in os.environ and skip_pytest_notebook:
             import pytest
 
-            pytest.exit(f"{env_var} not given [skip-notebook]")
+            pytest.exit(f"{env_var} not given [skip-notebook]")  # ty: ignore[invalid-argument-type]
         elif prompt:
             os.environ[env_var] = getpass.getpass(prompt)

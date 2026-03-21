@@ -10,9 +10,9 @@ from pueblo.ngr.model import ItemType
 from pueblo.ngr.util import mp, run_command
 
 try:
-    from contextlib import chdir as chdir_ctx  # type: ignore[attr-defined,unused-ignore]
+    from contextlib import chdir as chdir_ctx  # ty: ignore[unresolved-import]
 except ImportError:
-    from contextlib_chdir import chdir as chdir_ctx  # type: ignore[no-redef,unused-ignore]
+    from contextlib_chdir import chdir as chdir_ctx  # ty: ignore[unresolved-import]
 
 
 logger = logging.getLogger()
@@ -24,7 +24,7 @@ class RunnerBase:
         self.options = options
         self.type: t.Optional[ItemType] = None
         if hasattr(self, "__post_init__"):
-            self.__post_init__()
+            self.__post_init__()  # type: ignore[call-top-callable]
         self.has_makefile = mp(self.path, "Makefile")
         self.peek()
 
@@ -583,7 +583,7 @@ class PythonRunner(RunnerBase):
             # poethepoet 0.38 is now primarily based on asyncio,
             # but added the `load_sync` method to compensate.
             if hasattr(config, "load_sync"):
-                config.load_sync()
+                config.load_sync()  # ty: ignore[call-non-callable]
             else:
                 config.load()
             return [task for task in config.tasks.keys() if task and task[0] != "_"]

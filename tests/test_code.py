@@ -9,7 +9,7 @@ TESTDATA_SNIPPET = HERE / "testdata" / "snippet"
 
 
 @pytest.mark.pytest_notebook
-@pytest.mark.skipif(_pytest.version_tuple >= (8, 0, 0), reason="Requires pytest version 7")
+@pytest.mark.skipif(_pytest.version_tuple >= (8, 0, 0), reason="Requires pytest version 7")  # type: ignore[unsupported-operator]
 def test_monkeypatch_pytest_notebook_treat_cell_exit_as_notebook_skip():
     """
     Verify loading a monkeypatch supporting Jupyter Notebook testing.
@@ -36,7 +36,7 @@ def test_pytest_module_function(request, capsys):
 
 
 @pytest.mark.pytest_notebook
-@pytest.mark.skipif(_pytest.version_tuple >= (8, 0, 0), reason="Requires pytest version 7")
+@pytest.mark.skipif(_pytest.version_tuple >= (8, 0, 0), reason="Requires pytest version 7")  # type: ignore[unsupported-operator]
 def test_pytest_notebook(request):
     """
     Verify executing code cells in an arbitrary Jupyter Notebook.

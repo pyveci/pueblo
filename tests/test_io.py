@@ -17,7 +17,7 @@ README_NEEDLE = "A Python toolbox library"
 
 def test_to_io_failure():
     with pytest.raises(TypeError) as ex:
-        with to_io(None):
+        with to_io(None):  # type: ignore[invalid-argument-type]
             pass
     assert ex.match("Unable to converge to IO handle. type=<class 'NoneType'>, value=None")
 

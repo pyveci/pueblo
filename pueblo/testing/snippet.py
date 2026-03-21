@@ -42,7 +42,7 @@ def pytest_notebook(request: pytest.FixtureRequest, filepath: t.Union[str, Path]
 
     Not using `NBRegressionFixture`, because it would manually need to be configured.
     """
-    from pytest_notebook.plugin import pytest_collect_file
+    from pytest_notebook.plugin import pytest_collect_file  # ty: ignore[unresolved-import]
 
     path = Path(filepath)
     tests = pytest_collect_file(path, request.node)
