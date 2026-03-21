@@ -67,7 +67,7 @@ dependencies = [
 ]
 
 optional-dependencies.all = [
-  "pueblo[cli,dataframe,fileio,ngr,nlp,notebook,proc,sfa-full,testing,web]",
+  "pueblo[cli,dataframe,fileio,ngr,nlp,notebook,proc,sfa-full,testing]",
 ]
 optional-dependencies.cli = [
   "click<9",
@@ -105,6 +105,8 @@ optional-dependencies.nlp = [
   "langchain-community<0.5",
   "langchain-core>=0.2,<1.3",
   "langchain-text-splitters<1.2",
+  "requests-cache<2",
+  "spacy<3.9",
   "unstructured<0.18.31",
 ]
 optional-dependencies.notebook = [
@@ -141,9 +143,6 @@ optional-dependencies.testing = [
 optional-dependencies.testing-pytest7 = [
   "pytest<9",
   "pytest-notebook>=0.10,<0.11",
-]
-optional-dependencies.web = [
-  "requests-cache<2",
 ]
 urls.changelog = "https://github.com/pyveci/pueblo/blob/main/CHANGES.md"
 urls.documentation = "https://github.com/pyveci/pueblo"

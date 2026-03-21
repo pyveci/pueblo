@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Replaced NLTK with spaCy to remediate CVE-2025-14009, following
+  the decision of the `unstructured` package.
+  NLTK's downloader uses `zipfile.extractall()` without path validation,
+  enabling RCE via malicious packages (CVSS 10.0, no patch available).
+  spaCy models install as pip packages, eliminating the vulnerable
+  downloader entirely.
+
 ## 2026-02-08 v0.0.15
 - Downgraded to `unstructured` v0.18.27 due to installation problems with `llvmlite`
 
