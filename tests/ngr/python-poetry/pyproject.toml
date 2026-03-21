@@ -6,7 +6,7 @@ authors = []
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.8,!=3.9.7,<3.14"
+python = "^3.8,!=3.9.7"
 
 [tool.poetry.group.test.dependencies]
 pytest = ">=7.2,<8"
