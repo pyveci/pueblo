@@ -82,7 +82,7 @@ class NextGenerationRunner:
         for type_, class_ in self.runners.items():
             logger.info(f"Probing: type={type_}, class={class_}")
             try:
-                self.runner = class_(path=self.path, options=self.options)  # type: ignore[abstract]
+                self.runner = class_(path=self.path, options=self.options)
                 self.type = self.runner.type
             except Exception:
                 logger.exception("Unknown error")

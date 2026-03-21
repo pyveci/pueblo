@@ -5,7 +5,7 @@
 # ]
 # ///
 
-from cli_fragments import CliFragments
+from cli_fragments import CliFragments  # type: ignore[unresolved-import]
 
 io = CliFragments()
 

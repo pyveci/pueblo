@@ -83,10 +83,10 @@ optional-dependencies.dataframe = [
 ]
 optional-dependencies.develop = [
   "black[jupyter]<27",
-  "mypy<2",
   "poethepoet<1",
   "pyproject-fmt<3",
   "ruff<0.16",
+  "ty<0.0.25; python_version>='3.8'",
   "validate-pyproject<1",
 ]
 optional-dependencies.fileio = [
@@ -207,6 +207,10 @@ lint.per-file-ignores."staging/html.py" = [ "A005" ] # Module shadows a Python s
 
 lint.per-file-ignores."tests/*" = [ "S101" ] # Use of `assert` detected
 
+[tool.ty]
+src.exclude = [ "staging" ]
+rules.unused-ignore-comment = "ignore"
+
 [tool.pytest.ini_options]
 minversion = "2.0"
 addopts = """
@@ -251,21 +255,6 @@ omit = [
   "tests/*",
 ]
 
-[tool.mypy]
-packages = [ "pueblo" ]
-exclude = [
-]
-check_untyped_defs = true
-ignore_missing_imports = true
-implicit_optional = true
-install_types = true
-no_implicit_optional = true
-non_interactive = true
-show_error_codes = true
-strict_equality = true
-warn_unused_ignores = true
-warn_redundant_casts = true
-
 [tool.versioningit.vcs]
 method = "git"
 default-tag = "0.0.0"
@@ -287,7 +276,7 @@ lint = [
   { cmd = "ruff check ." },
   { cmd = "black --check ." },
   { cmd = "validate-pyproject pyproject.toml" },
-  { cmd = "mypy" },
+  { cmd = "ty check" },
 ]
 test = "pytest -m 'not (ngr or nlp or sfa)'"
 test-full = "pytest"

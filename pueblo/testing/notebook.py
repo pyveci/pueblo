@@ -43,7 +43,7 @@ def monkeypatch_pytest_notebook_treat_cell_exit_as_notebook_skip():
             )
         except CellExecutionError as ex:
             if ex.ename == "Exit" and ex.evalue.endswith("[skip-notebook]"):
-                raise pytest.skip(ex.evalue) from ex
+                raise pytest.skip(ex.evalue) from ex  # ty: ignore[invalid-argument-type,too-many-positional-arguments]
             else:  # noqa: RET506
                 raise
 
@@ -122,5 +122,5 @@ def run_notebook(notebook, enable_skipping=True, timeout=60, **kwargs):
             if enable_skipping:
                 msg = str(ex)
                 if "[skip-notebook]" in msg:
-                    raise pytest.skip(msg) from ex
+                    raise pytest.skip(msg) from ex  # ty: ignore[invalid-argument-type,too-many-positional-arguments]
             raise

@@ -21,7 +21,7 @@ def test_ngr_version():
     runner = CliRunner()
 
     result = runner.invoke(
-        pueblo.ngr.cli,
+        pueblo.ngr.cli,  # type: ignore[invalid-argument-type]
         args="--version",
         catch_exceptions=False,
         prog_name=PROGRAM_NAME,
@@ -51,7 +51,7 @@ def test_ngr_sample(sample: Path):
     runner = CliRunner()
 
     result = runner.invoke(
-        pueblo.ngr.cli,
+        pueblo.ngr.cli,  # type: ignore[invalid-argument-type]
         args=f"test --accept-no-venv tests/{sample}",
         catch_exceptions=False,
         prog_name=PROGRAM_NAME,
@@ -66,7 +66,7 @@ def test_ngr_make():
     runner = CliRunner()
 
     result = runner.invoke(
-        pueblo.ngr.cli,
+        pueblo.ngr.cli,  # type: ignore[invalid-argument-type]
         args="test --accept-no-venv tests/ngr/make",
         catch_exceptions=False,
         prog_name=PROGRAM_NAME,

@@ -16,7 +16,7 @@ def makeTimeDataFrame(nper=None, freq="B") -> pd.DataFrame:
     :return:
     """
     return pd.DataFrame(
-        np.random.default_rng(2).standard_normal((nper, 4)),
+        np.random.default_rng(2).standard_normal((nper, 4)),  # ty: ignore[no-matching-overload]
         columns=pd.Index(list("ABCD"), dtype=object),
         index=pd.date_range("2000-01-01", periods=nper, freq=freq),
     )
