@@ -1,0 +1,82 @@
+---
+name: Tests for pueblo.mcp
+
+on:
+  pull_request:
+    paths:
+    - '.github/workflows/mcp.yml'
+    - 'pueblo/mcp/**'
+    - 'tests/mcp/**'
+    - 'tests/*mcp*'
+    - 'pyproject.toml'
+  push:
+    branches: [ main ]
+    paths:
+    - '.github/workflows/mcp.yml'
+    - 'pueblo/mcp/**'
+    - 'tests/mcp/**'
+    - 'tests/*mcp*'
+    - 'pyproject.toml'
+
+  # Allow job to be triggered manually.
+  workflow_dispatch:
+
+  # Run job each night.
+  schedule:
+    - cron: '0 3 * * *'
+
+# Cancel in-progress jobs when pushing to the same branch.
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+
+  tests:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - "ubuntu-latest"
+        python-version:
+          - "3.10"
+          - "3.14"
+
+    services:
+      postgresql:
+        image: docker.io/postgres:18
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+
+    name: Python ${{ matrix.python-version }} on OS ${{ matrix.os }}
+    steps:
+
+    - name: Acquire sources
+      uses: actions/checkout@v6
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
+      with:
+        activate-environment: 'true'
+        cache-suffix: ${{ matrix.python-version }}
+        enable-cache: true
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install project
+      run: |
+        uv pip install --upgrade --editable='.[mcp,test]'
+
+    - name: Run software tests
+      run: |
+        pytest -m mcp
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v5
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      with:
+        fail_ci_if_error: true

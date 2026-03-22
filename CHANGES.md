@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- mcp: Added `McpConversation` helper for introspecting an MCP server
+
 ## 2026-03-22 v0.0.16
 
 - Replaced NLTK with spaCy to remediate CVE-2025-14009, following

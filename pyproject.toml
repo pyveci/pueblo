@@ -91,6 +91,10 @@ optional-dependencies.fileio = [
   "s3fs>=2021",
   "yarl<1.24",
 ]
+optional-dependencies.mcp = [
+  "mcp",
+  "pyyaml",
+]
 optional-dependencies.ngr = [
   "pip",
   "pueblo[cli]",
@@ -130,6 +134,7 @@ optional-dependencies.test = [
 ]
 optional-dependencies.testing = [
   "coverage<7.14",
+  "psycopg2-binary",
   "pytest<10",
   "pytest-cov<8",
   "pytest-env<2",
@@ -200,6 +205,7 @@ lint.per-file-ignores."tests/*" = [ "S101" ]  # Use of `assert` detected
 [tool.ty]
 src.exclude = [ "staging" ]
 rules.unused-ignore-comment = "ignore"
+analysis.allowed-unresolved-imports = [ "mcp", "mcp.types", "mcp.client.stdio" ]
 
 [tool.pytest]
 ini_options.minversion = "2.0"
@@ -213,6 +219,7 @@ ini_options.log_cli_level = "DEBUG"
 ini_options.testpaths = [ "tests" ]
 ini_options.xfail_strict = true
 ini_options.markers = [
+  "mcp",
   "ngr",
   "nlp",
   "pytest_notebook",
@@ -259,7 +266,7 @@ tasks.lint = [
   { cmd = "validate-pyproject pyproject.toml" },
   { cmd = "ty check" },
 ]
-tasks.test = "pytest -m 'not (ngr or nlp or sfa)'"
+tasks.test = "pytest -m 'not (mcp or ngr or nlp or sfa)'"
 tasks.test-full = "pytest"
 tasks.build = { cmd = "python -m build" }
 tasks.check = [ "lint", "test" ]
