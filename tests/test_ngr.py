@@ -45,14 +45,11 @@ def test_ngr_sample(sample: Path):
     """
     Invoke minimal `ngr test` target.
     """
-    if str(sample) == "ngr/meltano" and sys.version_info >= (3, 13):
-        raise pytest.skip("Meltano not available for Python 3.13 yet")
-
     runner = CliRunner()
 
     result = runner.invoke(
         pueblo.ngr.cli,  # type: ignore[invalid-argument-type]
-        args=f"test --accept-no-venv tests/{sample}",
+        args=f"test tests/{sample}",
         catch_exceptions=False,
         prog_name=PROGRAM_NAME,
     )
@@ -67,7 +64,7 @@ def test_ngr_make():
 
     result = runner.invoke(
         pueblo.ngr.cli,  # type: ignore[invalid-argument-type]
-        args="test --accept-no-venv tests/ngr/make",
+        args="test tests/ngr/make",
         catch_exceptions=False,
         prog_name=PROGRAM_NAME,
     )
