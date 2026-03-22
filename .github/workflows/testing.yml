@@ -1,6 +1,6 @@
 # pytest-notebook currently needs pytest8
 ---
-name: Tests for pueblo.testing.snippet
+name: Tests for pueblo.testing
 
 on:
   pull_request:
