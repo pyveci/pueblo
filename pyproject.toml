@@ -1,9 +1,7 @@
 # ==================
 # Project definition
 # ==================
-
 # Derived from https://peps.python.org/pep-0621/
-
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = [
@@ -37,7 +35,6 @@ classifiers = [
   "Operating System :: POSIX :: Linux",
   "Operating System :: Unix",
   "Programming Language :: Python",
-  "Programming Language :: Python :: Free Threading :: 1 - Unstable",
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
@@ -47,17 +44,16 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: Free Threading :: 1 - Unstable",
   "Topic :: Communications",
   "Topic :: Education",
   "Topic :: Software Development :: Libraries",
   "Topic :: Text Processing",
   "Topic :: Utilities",
 ]
-
 dynamic = [
   "version",
 ]
-
 dependencies = [
   "attrs",
   "contextlib-chdir; python_version<'3.11'",
@@ -65,7 +61,6 @@ dependencies = [
   "platformdirs<5",
   "tomli<3",
 ]
-
 optional-dependencies.all = [
   "pueblo[cli,dataframe,fileio,ngr,nlp,notebook,proc,sfa-full,testing]",
 ]
@@ -152,22 +147,19 @@ scripts.ngr = "pueblo.ngr.cli:main"
 scripts.pueblo = "pueblo.cli:cli"
 scripts.sfa = "pueblo.sfa.cli:main"
 
-[tool.setuptools.packages.find]
+[tool.setuptools]
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
-include = ["pueblo*"]
+packages.find.include = [ "pueblo*" ]
 
 [tool.black]
 line-length = 120
 
 # extend-exclude = ""
-
 [tool.ruff]
 line-length = 120
-
 extend-exclude = [
   "example_*",
 ]
-
 lint.select = [
   # Builtins
   "A",
@@ -195,96 +187,88 @@ lint.select = [
   # flake8-2020
   "YTT",
 ]
-
 lint.per-file-ignores."*.ipynb" = [
   "PD901", # Avoid using the generic variable name `df` for DataFrames
   "T201",  # `print` found
 ]
-lint.per-file-ignores."__init__.py" = [ "F401" ] # `xxx` imported but unused
-lint.per-file-ignores."pueblo/nlp/resource.py" = [ "A005" ] # Module shadows a Python standard-library module
-lint.per-file-ignores."pueblo/util/logging.py" = [ "A005" ] # Module shadows a Python standard-library module
-lint.per-file-ignores."staging/html.py" = [ "A005" ] # Module shadows a Python standard-library module
-
-lint.per-file-ignores."tests/*" = [ "S101" ] # Use of `assert` detected
+lint.per-file-ignores."__init__.py" = [ "F401" ]  # `xxx` imported but unused
+lint.per-file-ignores."pueblo/nlp/resource.py" = [ "A005" ]  # Module shadows a Python standard-library module
+lint.per-file-ignores."pueblo/util/logging.py" = [ "A005" ]  # Module shadows a Python standard-library module
+lint.per-file-ignores."staging/html.py" = [ "A005" ]  # Module shadows a Python standard-library module
+lint.per-file-ignores."tests/*" = [ "S101" ]  # Use of `assert` detected
 
 [tool.ty]
 src.exclude = [ "staging" ]
 rules.unused-ignore-comment = "ignore"
 
-[tool.pytest.ini_options]
-minversion = "2.0"
-addopts = """
+[tool.pytest]
+ini_options.minversion = "2.0"
+ini_options.addopts = """
   -rsfEX -p pytester --strict-markers --verbosity=3
   --cov=pueblo --cov-report=term-missing --cov-report=xml
   --ignore=tests/ngr
   """
-log_level = "DEBUG"
-log_cli_level = "DEBUG"
-testpaths = [ "tests" ]
-xfail_strict = true
-markers = [
+ini_options.log_level = "DEBUG"
+ini_options.log_cli_level = "DEBUG"
+ini_options.testpaths = [ "tests" ]
+ini_options.xfail_strict = true
+ini_options.markers = [
   "ngr",
   "nlp",
   "pytest_notebook",
   "sfa",
 ]
-env = [
+ini_options.env = [
   "PYDEVD_DISABLE_FILE_VALIDATION=1",
 ]
-
 # pytest-notebook settings
-nb_test_files = "true"
-nb_coverage = "false"
-nb_diff_ignore = [
+ini_options.nb_test_files = "true"
+ini_options.nb_coverage = "false"
+ini_options.nb_diff_ignore = [
   "/metadata/language_info",
   "/cells/*/execution_count",
   "/cells/*/outputs/*/execution_count",
 ]
 
-[tool.coverage.run]
-branch = false
-source = [ "pueblo" ]
-omit = [
+[tool.coverage]
+run.branch = false
+run.omit = [
   "tests/*",
 ]
-
-[tool.coverage.report]
-fail_under = 0
-show_missing = true
-omit = [
+run.source = [ "pueblo" ]
+report.fail_under = 0
+report.omit = [
   "tests/*",
 ]
+report.show_missing = true
 
-[tool.versioningit.vcs]
-method = "git"
-default-tag = "0.0.0"
-
+[tool.poe]
 # ===================
 # Tasks configuration
 # ===================
-
-[tool.poe.tasks]
-format = [
+tasks.format = [
   { cmd = "black ." },
   # Configure Ruff not to auto-fix (remove!):
   # Ignore unused imports (F401), unused variables (F841), `print` statements (T201), and commented-out code (ERA001).
   { cmd = "ruff check --fix --ignore=ERA --ignore=F401 --ignore=F841 --ignore=T20 --ignore=ERA001 ." },
   { cmd = "pyproject-fmt --keep-full-version pyproject.toml" },
 ]
-
-lint = [
+tasks.lint = [
   { cmd = "ruff check ." },
   { cmd = "black --check ." },
   { cmd = "validate-pyproject pyproject.toml" },
   { cmd = "ty check" },
 ]
-test = "pytest -m 'not (ngr or nlp or sfa)'"
-test-full = "pytest"
-build = { cmd = "python -m build" }
-check = [ "lint", "test" ]
-check-full = [ "lint", "test-full" ]
-
-release = [
+tasks.test = "pytest -m 'not (ngr or nlp or sfa)'"
+tasks.test-full = "pytest"
+tasks.build = { cmd = "python -m build" }
+tasks.check = [ "lint", "test" ]
+tasks.check-full = [ "lint", "test-full" ]
+tasks.release = [
   { cmd = "python -m build" },
   { cmd = "twine upload --skip-existing dist/*.tar.gz dist/*.whl" },
 ]
+
+[tool.versioningit]
+vcs.method = "git"
+vcs.default-tag = "0.0.0"
