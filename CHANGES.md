@@ -2,7 +2,9 @@
 
 ## Unreleased
 
-- mcp: Added `McpConversation` helper for introspecting an MCP server
+## 2026-03-22 v0.0.17
+
+- mcp: Added `McpConversation` helper for exercising an MCP server
 
 ## 2026-03-22 v0.0.16
 
