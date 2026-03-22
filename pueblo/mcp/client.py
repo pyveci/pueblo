@@ -34,8 +34,8 @@ class McpConversation:
     def decode_item(item):
         try:
             item["text"] = json.loads(item["text"])
-        except Exception:
-            logger.warning(f"Unable to decode text from JSON: {item}")
+        except (KeyError, TypeError, json.JSONDecodeError):
+            logger.warning("Unable to decode text from JSON or missing 'text' key: %s", item)
         return item
 
     def list_items(self, items):
@@ -51,7 +51,8 @@ class McpConversation:
         try:
             return self.list_items(getattr(await fun(), attribute))
         except McpError as e:
-            logger.error(f"Not implemented on this server: {e}")
+            logger.error("Not implemented on this server: %s", e)
+        return ""
 
     @staticmethod
     def dump_info(results):
@@ -70,16 +71,13 @@ class McpConversation:
         # List available resources and resource templates
         print("## Resources")
         self.dump_info(await self.entity_info(self.session.list_resources, "resources"))
-        print()
 
         print("## Resource templates")
         self.dump_info(await self.entity_info(self.session.list_resource_templates, "resourceTemplates"))
-        print()
 
         # List available tools
         print("## Tools")
         self.dump_info(await self.entity_info(self.session.list_tools, "tools"))
-        print()
 
     async def call_tool(self, name: str, arguments: t.Union[t.Dict[str, t.Any], None] = None) -> types.CallToolResult:
         print(f"Calling tool: {name} with arguments: {arguments}")

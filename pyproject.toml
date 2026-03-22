@@ -92,8 +92,8 @@ optional-dependencies.fileio = [
   "yarl<1.24",
 ]
 optional-dependencies.mcp = [
-  "mcp",
-  "pyyaml",
+  "mcp>=1.0,<2",
+  "pyyaml<7",
 ]
 optional-dependencies.ngr = [
   "pip",
@@ -130,11 +130,11 @@ optional-dependencies.sfa-full = [
   "pueblo[sfa]",
 ]
 optional-dependencies.test = [
+  "psycopg2-binary<3",
   "pueblo[testing]",
 ]
 optional-dependencies.testing = [
   "coverage<7.14",
-  "psycopg2-binary",
   "pytest<10",
   "pytest-cov<8",
   "pytest-env<2",
@@ -205,7 +205,14 @@ lint.per-file-ignores."tests/*" = [ "S101" ]  # Use of `assert` detected
 [tool.ty]
 src.exclude = [ "staging" ]
 rules.unused-ignore-comment = "ignore"
-analysis.allowed-unresolved-imports = [ "mcp", "mcp.types", "mcp.client.stdio" ]
+analysis.allowed-unresolved-imports = [
+  "mcp",
+  "mcp.types",
+  "mcp.client.stdio",
+  "pydantic",
+  "pydantic_core",
+  "yaml",
+]
 
 [tool.pytest]
 ini_options.minversion = "2.0"

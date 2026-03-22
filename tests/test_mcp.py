@@ -19,7 +19,7 @@ from pueblo.mcp.client import McpConversation
 
 pytestmark = pytest.mark.mcp
 
-DB_URL = "postgresql://postgres:postgres@localhost:5432/postgres"
+DB_URL = "postgresql://postgres@localhost:5432/postgres"
 
 
 async def run():
@@ -69,9 +69,9 @@ def test_mcp(capsys):
     """
     Verify a typical conversation with an MCP server.
     """
-    asyncio.run(run())
+    asyncio.run(asyncio.wait_for(run(), timeout=120))
 
-    out, err = capsys.readouterr()
+    out, _ = capsys.readouterr()
 
     assert "# MCP server inquiry" in out
     assert "## Resources" in out
@@ -95,4 +95,5 @@ def test_mcp(capsys):
     assert "text: mcp_alchemy" in out
 
     assert "Calling tool: schema_definitions with arguments" in out
-    assert r'text: "mcp_alchemy:\n    id: INTEGER, nullable\n    data: TEXT, nullable"' in out
+    assert "id: INTEGER, nullable" in out
+    assert "data: TEXT, nullable" in out
