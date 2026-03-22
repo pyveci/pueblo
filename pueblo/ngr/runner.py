@@ -653,3 +653,49 @@ class RustRunner(RunnerBase):
         Invoke `cargo test`.
         """
         run_command("cargo test")
+
+
+class ShellRunner(RunnerBase):
+    """
+    Basic shell runner.
+
+    Currently, just knows to invoke `test.*sh` within a directory.
+    """
+
+    def __post_init__(self) -> None:
+        self.pattern = "test.*sh"
+        self.testfile = None
+
+    def peek(self) -> None:
+        if mp(self.path, self.pattern):
+            self.type = ItemType.SHELL
+            self.testfile = next(self.path.glob(self.pattern))
+
+    def install(self) -> None:
+        """
+        Effectively a noop.
+        """
+        pass
+
+    def test(self) -> None:
+        """
+        Invoke `sh test.sh`.
+        """
+        if not self.testfile:
+            raise RuntimeError(f"Failed to discover shell task with pattern: {self.pattern}")
+        filepath = Path(self.testfile.name)
+        interpreter = self._get_interpreter(filepath)
+        run_command(f"{interpreter} {filepath}")
+
+    def _get_interpreter(self, script: Path, fallback: str = "sh") -> str:
+        """
+        Read shebang line from script.
+        e.g. "/usr/bin/env bash" or "/bin/bash"
+        """
+        try:
+            first_line = script.read_text(encoding="utf-8").splitlines()[0]
+        except (IndexError, OSError):
+            return fallback
+        if not first_line.startswith("#!"):
+            return fallback
+        return first_line[2:].strip()

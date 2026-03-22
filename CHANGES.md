@@ -8,6 +8,7 @@
   enabling RCE via malicious packages (CVSS 10.0, no patch available).
   spaCy models install as pip packages, eliminating the vulnerable
   downloader entirely.
+- ngr: Added runner for shell scripts like `test.sh`
 
 ## 2026-02-08 v0.0.15
 - Downgraded to `unstructured` v0.18.27 due to installation problems with `llvmlite`

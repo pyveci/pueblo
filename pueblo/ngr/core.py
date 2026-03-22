@@ -33,6 +33,7 @@ from pueblo.ngr.runner import (
     RubyRunner,
     RunnerBase,
     RustRunner,
+    ShellRunner,
 )
 
 logger = logging.getLogger()
@@ -63,8 +64,8 @@ class NextGenerationRunner:
             ItemType.PYTHON: PythonRunner,
             ItemType.RUBY: RubyRunner,
             ItemType.RUST: RustRunner,
-            # Makefile runner, as fallback.
             ItemType.MAKE: MakeRunner,
+            ItemType.SHELL: ShellRunner,
         }
         self.identify()
 
