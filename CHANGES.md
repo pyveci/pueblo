@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2026-03-22 v0.0.16
+
 - Replaced NLTK with spaCy to remediate CVE-2025-14009, following
   the decision of the `unstructured` package.
   NLTK's downloader uses `zipfile.extractall()` without path validation,
