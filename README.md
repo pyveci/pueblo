@@ -1,6 +1,7 @@
 # Pueblo - a Python toolbox library
 
 [![Tests (main)](https://github.com/pyveci/pueblo/actions/workflows/main.yml/badge.svg)](https://github.com/pyveci/pueblo/actions/workflows/main.yml)
+[![Tests (mcp)](https://github.com/pyveci/pueblo/actions/workflows/mcp.yml/badge.svg)](https://github.com/pyveci/pueblo/actions/workflows/mcp.yml)
 [![Tests (ngr)](https://github.com/pyveci/pueblo/actions/workflows/ngr.yml/badge.svg)](https://github.com/pyveci/pueblo/actions/workflows/ngr.yml)
 [![Tests (nlp)](https://github.com/pyveci/pueblo/actions/workflows/nlp.yml/badge.svg)](https://github.com/pyveci/pueblo/actions/workflows/nlp.yml)
 [![Tests (sfa)](https://github.com/pyveci/pueblo/actions/workflows/sfa.yml/badge.svg)](https://github.com/pyveci/pueblo/actions/workflows/sfa.yml)
