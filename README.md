@@ -1,13 +1,17 @@
 # Pueblo - a Python toolbox library
 
-[![Tests](https://github.com/pyveci/pueblo/actions/workflows/main.yml/badge.svg)](https://github.com/pyveci/pueblo/actions/workflows/main.yml)
+[![Tests (main)](https://github.com/pyveci/pueblo/actions/workflows/main.yml/badge.svg)](https://github.com/pyveci/pueblo/actions/workflows/main.yml)
+[![Tests (ngr)](https://github.com/pyveci/pueblo/actions/workflows/ngr.yml/badge.svg)](https://github.com/pyveci/pueblo/actions/workflows/ngr.yml)
+[![Tests (nlp)](https://github.com/pyveci/pueblo/actions/workflows/nlp.yml/badge.svg)](https://github.com/pyveci/pueblo/actions/workflows/nlp.yml)
+[![Tests (sfa)](https://github.com/pyveci/pueblo/actions/workflows/sfa.yml/badge.svg)](https://github.com/pyveci/pueblo/actions/workflows/sfa.yml)
+[![Tests (testing)](https://github.com/pyveci/pueblo/actions/workflows/testing.yml/badge.svg)](https://github.com/pyveci/pueblo/actions/workflows/testing.yml)
 [![Test coverage](https://img.shields.io/codecov/c/gh/pyveci/pueblo.svg)](https://codecov.io/gh/pyveci/pueblo/)
-[![Python versions](https://img.shields.io/pypi/pyversions/pueblo.svg)](https://pypi.org/project/pueblo/)
 
-[![License](https://img.shields.io/github/license/pyveci/pueblo.svg)](https://github.com/pyveci/pueblo/blob/main/LICENSE)
+[![Downloads](https://pepy.tech/badge/pueblo/month)](https://pypi.org/project/pueblo/)
 [![Status](https://img.shields.io/pypi/status/pueblo.svg)](https://pypi.org/project/pueblo/)
 [![PyPI](https://img.shields.io/pypi/v/pueblo.svg)](https://pypi.org/project/pueblo/)
-[![Downloads](https://pepy.tech/badge/pueblo/month)](https://pypi.org/project/pueblo/)
+[![License](https://img.shields.io/github/license/pyveci/pueblo.svg)](https://github.com/pyveci/pueblo/blob/main/LICENSE)
+[![Python versions](https://img.shields.io/pypi/pyversions/pueblo.svg)](https://pypi.org/project/pueblo/)
 
 
 <!-- » [Documentation] -->
