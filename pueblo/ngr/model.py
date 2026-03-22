@@ -15,3 +15,4 @@ class ItemType(Enum):
     PYTHON = "python"
     RUBY = "ruby"
     RUST = "rust"
+    SHELL = "shell"
