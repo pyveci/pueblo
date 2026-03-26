@@ -106,7 +106,7 @@ optional-dependencies.nlp = [
   "langchain-text-splitters<1.2",
   "requests-cache<2",
   "spacy<3.9",
-  "unstructured<0.21.6",
+  "unstructured<0.22.7",
 ]
 optional-dependencies.notebook = [
   "nbclient<0.11",
