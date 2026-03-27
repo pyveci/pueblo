@@ -24,7 +24,7 @@ class RunnerBase:
         self.options = options
         self.type: t.Optional[ItemType] = None
         if hasattr(self, "__post_init__"):
-            self.__post_init__()  # type: ignore[call-top-callable]
+            self.__post_init__()  # ty: ignore[call-non-callable]
         self.has_makefile = mp(self.path, "Makefile")
         self.peek()
 

@@ -47,7 +47,7 @@ def monkeypatch_pytest_notebook_treat_cell_exit_as_notebook_skip():
             else:  # noqa: RET506
                 raise
 
-    NotebookClient.async_execute_cell = async_execute_cell  # type: ignore[method-assign,unused-ignore]
+    NotebookClient.async_execute_cell = async_execute_cell  # ty: ignore[invalid-assignment]
 
 
 def list_path(path: Path, suffix: str = ".ipynb"):

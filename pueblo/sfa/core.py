@@ -177,7 +177,7 @@ class SingleFileApplication:
 
         import instld
 
-        return instld(*requirements)  # type: ignore[call-non-callable]
+        return instld(*requirements)  # ty: ignore[call-non-callable]
 
     def import_module(self):
         if self.path.is_file():
