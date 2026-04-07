@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2026-04-07 v0.0.18
+
 - general: Downgrade to poethepoet 0.42 to fix task runner API
 - nlp: Relax package dependencies by removing upper bounds. The idea of a
   "validated ecosystem" is counter-productive in this case, because the
