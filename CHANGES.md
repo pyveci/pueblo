@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- general: Downgrade to poethepoet 0.42 to fix task runner API
+
 ## 2026-03-22 v0.0.17
 
 - mcp: Added `McpConversation` helper for exercising an MCP server
