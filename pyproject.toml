@@ -85,7 +85,7 @@ optional-dependencies.develop = [
   "validate-pyproject<1",
 ]
 optional-dependencies.fileio = [
-  "fsspec[abfs,dask,gcs,git,github,http,s3,smb]<2026.4",
+  "fsspec[abfs,dask,gcs,git,github,http,s3,smb]<2026.5",
   "pathlibfs<0.6",
   "python-magic<0.5",
   "s3fs>=2021",
@@ -125,7 +125,7 @@ optional-dependencies.sfa = [
   "pueblo[cli]",
 ]
 optional-dependencies.sfa-full = [
-  "fsspec[github,http,libarchive,s3]<2026.4",
+  "fsspec[github,http,libarchive,s3]<2026.5",
   "instld<0.1",
   "pueblo[sfa]",
 ]
