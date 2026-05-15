@@ -78,7 +78,7 @@ optional-dependencies.dataframe = [
 ]
 optional-dependencies.develop = [
   "black[jupyter]<27",
-  "poethepoet<0.43",
+  "poethepoet<0.47",
   "pyproject-fmt<3",
   "ruff<0.16",
   "ty<0.0.35; python_version>='3.8'",
