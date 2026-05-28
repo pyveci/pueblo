@@ -586,7 +586,11 @@ class PythonRunner(RunnerBase):
                 config.load_sync()  # ty: ignore[call-non-callable]
             else:
                 config.load()
-            return [task for task in config.tasks.keys() if task and task[0] != "_"]
+            if hasattr(config, "get_tasks"):
+                tasks = config.get_tasks()  # ty: ignore[call-non-callable]
+            else:
+                tasks = config.tasks
+            return [task for task in tasks.keys() if task and task[0] != "_"]
         except Exception as ex:  # pylint: disable=broad-except
             # this happens if there's no pyproject.toml present
             raise ValueError(f"Discovering poe task names failed: {ex}") from ex
