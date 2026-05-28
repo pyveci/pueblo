@@ -6,6 +6,7 @@
   for compatibility with Python 3.8.
 - nlp: Downgraded to unstructured 0.17, to get rid of the
   transitive `llvmlite` and `numba` dependencies
+- ngr: Accompanied changes in poethepoet v0.43 and newer
 
 ## 2026-04-07 v0.0.18
 
