@@ -73,7 +73,6 @@ optional-dependencies.cli = [
 ]
 optional-dependencies.dataframe = [
   "dask",
-  "numba>=0.50",
   "numpy",
   "pandas",
   "pyarrow",
@@ -108,7 +107,7 @@ optional-dependencies.nlp = [
   "langchain-text-splitters",
   "requests-cache",
   "spacy",
-  "unstructured",
+  "unstructured<0.18",
 ]
 optional-dependencies.notebook = [
   "nbclient<0.12",
