@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- general: Adjusted dependency specification for `click-aliases`,
+  for compatibility with Python 3.8.
+
 ## 2026-04-07 v0.0.18
 
 - general: Downgrade to poethepoet 0.42 to fix task runner API
