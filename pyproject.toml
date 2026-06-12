@@ -82,7 +82,7 @@ optional-dependencies.develop = [
   "poethepoet<0.43",
   "pyproject-fmt<3",
   "ruff<0.16",
-  "ty<0.0.46; python_version>='3.8'",
+  "ty<0.0.50; python_version>='3.8'",
   "validate-pyproject<1",
 ]
 optional-dependencies.fileio = [
