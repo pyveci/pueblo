@@ -73,6 +73,7 @@ optional-dependencies.cli = [
 ]
 optional-dependencies.dataframe = [
   "dask",
+  "numba>=0.50",
   "numpy",
   "pandas",
   "pyarrow",
