@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2026-07-06 v0.0.19
+
 - general: Adjusted dependency specification for `click-aliases`,
   for compatibility with Python 3.8.
 - nlp: Downgraded to unstructured 0.17, to get rid of the
