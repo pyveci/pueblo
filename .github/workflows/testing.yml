@@ -49,7 +49,7 @@ jobs:
 
     - name: Install project
       run: |
-        uv pip install --upgrade --editable='.[all,develop,test,testing-pytest7]'
+        uv pip install --upgrade --editable='.[all,develop,test]'
 
     - name: Run linter and software tests
       run: |
