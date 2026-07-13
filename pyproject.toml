@@ -140,10 +140,8 @@ optional-dependencies.testing = [
   "pytest-cov<8",
   "pytest-env<2",
   "pytest-mock<4",
-]
-optional-dependencies.testing-pytest7 = [
-  "pytest<9",
-  "pytest-notebook>=0.10,<0.11",
+  "pytest-notebook; python_version<'3.10'",
+  "pytest-notebook @ git+https://github.com/chrisjsewell/pytest-notebook.git@master ; python_version>='3.10'",
 ]
 urls.changelog = "https://github.com/pyveci/pueblo/blob/main/CHANGES.md"
 urls.documentation = "https://github.com/pyveci/pueblo"
