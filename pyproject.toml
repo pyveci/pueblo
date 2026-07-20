@@ -143,7 +143,7 @@ optional-dependencies.testing = [
 ]
 optional-dependencies.testing-pytest7 = [
   "pytest<9",
-  "pytest-notebook>=0.10,<0.11",
+  "pytest-notebook>=0.10,<0.12",
 ]
 urls.changelog = "https://github.com/pyveci/pueblo/blob/main/CHANGES.md"
 urls.documentation = "https://github.com/pyveci/pueblo"
