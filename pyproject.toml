@@ -120,7 +120,7 @@ optional-dependencies.proc = [
 ]
 optional-dependencies.release = [
   "build<2",
-  "twine<7",
+  "twine<8",
 ]
 optional-dependencies.sfa = [
   "pueblo[cli]",
