@@ -93,7 +93,7 @@ optional-dependencies.fileio = [
   "yarl<1.25",
 ]
 optional-dependencies.mcp = [
-  "mcp>=1.0,<2",
+  "mcp>=1.0,<3",
   "pyyaml<7",
 ]
 optional-dependencies.ngr = [
