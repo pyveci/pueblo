@@ -93,7 +93,7 @@ def remote_files() -> t.List[RemoteFile]:
         ),
         RemoteFile(
             url="s3://fmi-gridded-obs-daily-1km/Netcdf/Tday/tday_2023.nc",
-            mimetypes=["application/x-netcdf", "application/octet-stream"],
+            mimetypes=["application/x-hdf5", "application/x-netcdf", "application/octet-stream"],
         ),
     ]
 
