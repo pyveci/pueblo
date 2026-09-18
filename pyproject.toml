@@ -126,7 +126,7 @@ optional-dependencies.sfa = [
   "pueblo[cli]",
 ]
 optional-dependencies.sfa-full = [
-  "fsspec[github,http,libarchive,s3]<2026.8",
+  "fsspec[github,http,libarchive,s3]<2026.10",
   "instld<0.1",
   "pueblo[sfa]",
 ]
