@@ -61,7 +61,7 @@ jobs:
     - name: Install Elixir
       uses: erlef/setup-beam@v1
       with:
-        otp-version: '26.2.5'
+        otp-version: '29.1.1'
         elixir-version: '1.15'
     - name: Install Elixir/Mix dependency cache
       uses: actions/cache@v6
