@@ -7,7 +7,7 @@ import typing as t
 import mcp.types as types
 import pydantic_core
 import yaml
-from mcp import ClientSession, McpError
+from mcp import ClientSession, MCPError
 from pydantic import AnyUrl
 
 logger = logging.getLogger(__name__)
@@ -50,7 +50,7 @@ class McpConversation:
     async def entity_info(self, fun, attribute):
         try:
             return self.list_items(getattr(await fun(), attribute))
-        except McpError as e:
+        except MCPError as e:
             logger.error("Not implemented on this server: %s", e)
         return ""
 
@@ -73,7 +73,7 @@ class McpConversation:
         self.dump_info(await self.entity_info(self.session.list_resources, "resources"))
 
         print("## Resource templates")
-        self.dump_info(await self.entity_info(self.session.list_resource_templates, "resourceTemplates"))
+        self.dump_info(await self.entity_info(self.session.list_resource_templates, "resource_templates"))
 
         # List available tools
         print("## Tools")
