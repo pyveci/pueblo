@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- IO: Fix software test, because S3 learned application/x-hdf5
+- ngr: Version updates
+
 ## 2026-07-06 v0.0.19
 
 - general: Adjusted dependency specification for `click-aliases`,
