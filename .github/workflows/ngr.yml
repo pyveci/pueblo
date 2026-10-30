@@ -78,6 +78,12 @@ jobs:
         java-version: "25"
 
     # Needed for `pueblo.ngr`.
+    - name: Install Julia
+      uses: julia-actions/setup-julia@v3
+      with:
+        version: '1'
+
+    # Needed for `pueblo.ngr`.
     - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
