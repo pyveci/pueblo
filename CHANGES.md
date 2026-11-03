@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2026-11-03 v0.1.1
+
 - ngr: Downgrade to pytest 9.1, because code in `pueblo.ngr` is not compatible yet.
 
 ## 2026-10-01 v0.1.0
