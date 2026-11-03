@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- ngr: Downgrade to pytest 9.1, because code in `pueblo.ngr` is not compatible yet.
+
 ## 2026-10-01 v0.1.0
 
 - IO: Fix software test, because S3 learned application/x-hdf5
