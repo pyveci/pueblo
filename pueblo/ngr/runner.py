@@ -10,9 +10,9 @@ from pueblo.ngr.model import ItemType
 from pueblo.ngr.util import mp, run_command
 
 try:
-    from contextlib import chdir as chdir_ctx  # ty: ignore[unresolved-import]
+    from contextlib import chdir as chdir_ctx  # ty: ignore[import-not-found]
 except ImportError:
-    from contextlib_chdir import chdir as chdir_ctx  # ty: ignore[unresolved-import]
+    from contextlib_chdir import chdir as chdir_ctx  # ty: ignore[import-not-found]
 
 
 logger = logging.getLogger()

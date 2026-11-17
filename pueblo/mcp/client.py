@@ -95,7 +95,7 @@ class McpConversation:
 
     async def read_resource(self, uri: AnyUrl) -> types.ReadResourceResult:
         print(f"Reading resource: {uri}")
-        result = await self.session.read_resource(uri)
+        result = await self.session.read_resource(str(uri))
         print(self.list_items(result.contents))
         print()
         return result
