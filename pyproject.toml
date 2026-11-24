@@ -136,7 +136,7 @@ optional-dependencies.test = [
 ]
 optional-dependencies.testing = [
   "coverage<8",
-  "pytest<9.2",
+  "pytest<9.3",
   "pytest-cov<8",
   "pytest-env<2",
   "pytest-mock<4",
